@@ -1,0 +1,13 @@
+/* media query for mobile */
+@media (max-width: 480px) {
+    #together {
+        position:absolute;
+        top: 32%;
+        left: 37%;
+        max-width: 200px;
+    }
+}
+.links {
+    text-decoration: none;
+    color: white;
+}
