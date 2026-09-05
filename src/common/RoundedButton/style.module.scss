@@ -16,7 +16,7 @@
 
     &:hover{
         p{
-            color: white;
+            color: var(--hoverText, white);
         }
     }
 }

@@ -6,30 +6,41 @@
     justify-content: center;
     position: fixed;
     z-index: 99;
-    background-color: #141516;
+    background-color: #1C1B20;
     svg{
         position: absolute;
         top: 0;
         width: 100%;
         height: calc(100% + 300px);
         path{
-            fill: #141516;
+            fill: #1C1B20;
         }
     }
     p{
         display: flex;
         color: white;
-        font-size: 42px;
+        font-family: ui-monospace, "JetBrains Mono", "Geist Mono", monospace;
+        font-size: 28px;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        white-space: nowrap;
         align-items: center;
+        justify-content: center;
         position: absolute;
         z-index: 1;
+
+        @media (min-width: 768px) {
+            font-size: 40px;
+        }
+
         span{
             display: block;
             width: 10px;
             height: 10px;
-            background-color: white;
+            background-color: #A3D900;
             border-radius: 50%;
-            margin-right: 10px;
+            margin-right: 14px;
+            flex-shrink: 0;
         }
     }
 }

@@ -8,6 +8,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Rounded from "../../common/RoundedButton";
 import Magnetic from "../../common/Magnetic";
+import LanguageSwitcher from "../../common/LanguageSwitcher";
+import { useLanguage } from "../../context/LanguageContext";
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 
 gsap.registerPlugin(ScrollToPlugin);
@@ -17,6 +19,7 @@ export default function index() {
   const [isActive, setIsActive] = useState(false);
   const pathname = usePathname();
   const button = useRef(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (isActive) setIsActive(false);
@@ -50,13 +53,16 @@ export default function index() {
   return (
     <>
       <div ref={header} className={styles.header}>
-        <div className={styles.logo}>
-          <p className={styles.copyright}>©</p>
-          <div className={styles.name}>
-            <p className={styles.codeBy}>Code by</p>
-            <p className={styles.luis}>Luis</p>
-            <p className={styles.cadena}>Cadena</p>
+        <div className={styles.leftGroup}>
+          <div className={styles.logo}>
+            <p className={styles.copyright}>©</p>
+            <div className={styles.name}>
+              <p className={styles.codeBy}>Code by</p>
+              <p className={styles.luis}>Luis</p>
+              <p className={styles.cadena}>Cadena</p>
+            </div>
           </div>
+          <LanguageSwitcher />
         </div>
         <div className={styles.nav}>
           <Magnetic>
@@ -72,7 +78,7 @@ export default function index() {
                   });
                 }}
               >
-                Work
+                {t.nav.work}
               </a>
               <div className={styles.indicator}></div>
             </div>
@@ -90,7 +96,7 @@ export default function index() {
                   });
                 }}
               >
-                About
+                {t.nav.about}
               </a>
               <div className={styles.indicator}></div>
             </div>
@@ -108,7 +114,7 @@ export default function index() {
                   });
                 }}
               >
-                Experience
+                {t.nav.experience}
               </a>
               <div className={styles.indicator}></div>
             </div>
@@ -126,7 +132,7 @@ export default function index() {
                   });
                 }}
               >
-                Contact
+                {t.nav.contact}
               </a>
               <div className={styles.indicator}></div>
             </div>

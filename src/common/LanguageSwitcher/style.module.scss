@@ -1,0 +1,38 @@
+.switcher{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: ui-monospace, "SF Mono", "Courier New", monospace;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+}
+
+.divider{
+    color: rgba(255, 255, 255, 0.35);
+}
+
+.active, .inactive{
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: white;
+    font-family: inherit;
+    font-size: inherit;
+    letter-spacing: inherit;
+}
+
+.active{
+    font-weight: 700;
+    opacity: 1;
+}
+
+.inactive{
+    font-weight: 500;
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
+
+    &:hover{
+        opacity: 0.8;
+    }
+}

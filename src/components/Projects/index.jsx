@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import Image from 'next/image';
 import Rounded from '../../common/RoundedButton';
+import { useLanguage } from '../../context/LanguageContext';
 import './index.css'
 
 /**
@@ -14,9 +15,10 @@ import './index.css'
  * @property {string} id - unique slug, e.g. "salpicon"
  * @property {string} title
  * @property {ProjectCategory} category
- * @property {string} tag - short technical line, e.g. "Godot • GDScript • Physics"
- * @property {string} description - 1-2 sentences
- * @property {string[]} stack
+ * @property {string} tag - short technical line, e.g. "Systems Architecture · Real-Time Physics"
+ * @property {string} problem - the strategic decision or system problem behind the build
+ * @property {string[]} architecture - pipeline stages, rendered as an arrow chain
+ * @property {string} impact - impact and governance notes
  * @property {string} src - filename in /public/images
  * @property {string} color - modal background hex
  * @property {string} link - repo / demo url
@@ -28,33 +30,27 @@ const projects = [
     id: "salpicon",
     title: "Salpicon Game",
     category: "gamedev",
-    tag: "Game Architecture • Mechanics & Physics",
-    description: "Videojuego experimental enfocado en mecánicas de físicas, modularidad y optimización de renderizado en tiempo real.",
-    stack: ["Game Engine", "Architecture", "Physics Engine"],
+    architecture: ["Input Layer", "Physics Engine", "Scene Graph", "Render Pipeline"],
     src: "salpicon.png",
-    color: "#1C1D20",
+    color: "#1C1B20",
     link: "https://salpicon-game.vercel.app/"
   },
   {
     id: "security-architecture",
     title: "Android Malware Detection",
     category: "security",
-    tag: "Cybersecurity • System Design",
-    description: "Diseño e implementación de arquitecturas distribuidas seguras, protocolos de autorización y observabilidad de infraestructura.",
-    stack: ["OpenTelemetry", "Django", "GCP", "Security Architecture"],
+    architecture: ["Permission Signals", "Detection Model", "OpenTelemetry Observability", "Risk Scoring"],
     src: "security.png",
-    color: "#1C1D20",
+    color: "#1C1B20",
     link: "https://android-permission-sentinel.vercel.app/"
   },
   {
     id: "ai-systems",
     title: "Applied AI Sugar Cane Harvest Forecasting",
     category: "ai",
-    tag: "AI Engineering • TFLite & LLMs",
-    description: "Sistemas inteligentes y pipelines de control de calidad basados en IA, modelos TensorFlow Lite e integración con LLMs.",
-    stack: ["TensorFlow Lite", "Python", "LLMs", "Edge AI"],
+    architecture: ["Field Data Input", "TFLite Edge Inference", "LLM Quality-Control Layer", "Harvest Forecast"],
     src: "ai-qc.png",
-    color: "#1C1D20",
+    color: "#1C1B20",
     link: "https://github.com/luiscadn/ProvidenciaCane-Harvest-Forecasting-ML.git"
   }
 ]
@@ -66,6 +62,7 @@ const scaleAnimation = {
 }
 
 export default function Home() {
+  const { t } = useLanguage();
   const [modal, setModal] = useState({ active: false, index: 0 })
   const { active, index } = modal;
   const modalContainer = useRef(null);
@@ -91,7 +88,15 @@ export default function Home() {
   }, [])
 
   const moveItems = (x, y) => {
-    if (window.innerWidth > 768) {
+    if (
+      window.innerWidth > 768 &&
+      typeof xMoveContainer.current === "function" &&
+      typeof yMoveContainer.current === "function" &&
+      typeof xMoveCursor.current === "function" &&
+      typeof yMoveCursor.current === "function" &&
+      typeof xMoveCursorLabel.current === "function" &&
+      typeof yMoveCursorLabel.current === "function"
+    ) {
       xMoveContainer.current(x)
       yMoveContainer.current(y)
       xMoveCursor.current(x)
@@ -114,14 +119,29 @@ export default function Home() {
       onMouseMove={(e) => window.innerWidth > 768 ? moveItems(e.clientX, e.clientY) : null}
       className={styles.projects}
     >
+      <div className={styles.header}>
+        <div className={styles.titleWrapper}>
+          <span className={styles.sectionTag}>{t.projects.eyebrow}</span>
+          <h2 className={styles.title}>{t.projects.title}</h2>
+        </div>
+        <p className={styles.subtitle}>
+          {t.projects.subtitle}
+        </p>
+      </div>
       <div className={styles.body}>
         {
           projects.map((project, index) => {
+            const copy = t.projects.items[project.id];
             return <Project
               index={index}
               title={project.title}
-              tag={project.tag}
+              tag={copy.tag}
+              problem={copy.problem}
+              architecture={project.architecture}
+              impact={copy.impact}
               link={project.link}
+              caseLabels={t.projects.caseLabels}
+              viewProjectLabel={t.projects.viewProject}
               manageModal={manageModal}
               key={index}
             />
@@ -130,7 +150,7 @@ export default function Home() {
       </div>
       <Rounded>
         <a href="https://github.com/luiscadn" target="_blank" rel="noopener noreferrer" id='github'>
-          <p>More on GitHub</p>
+          <p>{t.projects.moreOnGithub}</p>
         </a>
       </Rounded>
       <>
@@ -152,10 +172,10 @@ export default function Home() {
                 >
                   <Image
                     src={`/images/${src}`}
-                    width={300}
-                    height={0}
+                    fill
+                    sizes="400px"
                     alt={`${project.title} project image`}
-                    style={{ maxWidth: '100%', height: 'auto' }}
+                    style={{ objectFit: 'contain' }}
                   />
                 </div>
               })
@@ -177,7 +197,7 @@ export default function Home() {
           animate={active ? "enter" : "closed"}
           style={{ cursor: 'pointer' }}
         >
-          View
+          {t.projects.hoverView}
         </motion.div>
       </>
     </main>

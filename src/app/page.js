@@ -7,7 +7,6 @@ import Landing from '../components/Landing';
 import Projects from '../components/Projects';
 import Description from '../components/Description';
 import Experience from '../components/Experience';
-import SlidingImages from '../components/SlidingImages';
 import Contact from '../components/Contact';
 
 export default function Home() {
@@ -31,15 +30,12 @@ export default function Home() {
   }, [isLoading]);
 
   useEffect(() => {
-    (async () => {
-      const LocomotiveScroll = (await import('locomotive-scroll')).default;
-      const locomotiveScroll = new LocomotiveScroll();
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+      window.scrollTo(0, 0); // Reiniciar la posición de scroll
+    }, 2000);
 
-      setTimeout(() => {
-        setIsLoading(false);
-        window.scrollTo(0, 0); // Reiniciar la posición de scroll
-      }, 2000);
-    })();
+    return () => clearTimeout(timeoutId);
   }, []);
 
   return (
@@ -51,7 +47,6 @@ export default function Home() {
       <Description />
       <Experience />
       <Projects />
-      <SlidingImages />
       <Contact />
     </main>
   );

@@ -5,11 +5,65 @@
     padding-left: 5%;
     padding-right: 5%;
     flex-direction: column;
-    margin-top: 200px;
+    margin-top: 64px;
     margin-bottom: 100px;
 
     @media (max-width: 768px) {
-        
+        margin-top: 48px;
+    }
+
+    .header {
+        width: 100%;
+        max-width: 1400px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        gap: 20px;
+        border-bottom: 1px solid #1c1b20;
+        padding-bottom: 30px;
+        margin-bottom: 60px;
+
+        .titleWrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            .sectionTag {
+                font-family: ui-monospace, "SF Mono", "Courier New", monospace;
+                font-size: 13px;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                color: #1c1b20;
+            }
+
+            .title {
+                font-size: 48px;
+                font-weight: 700;
+                margin: 0;
+                letter-spacing: -1px;
+                color: #1c1b20;
+            }
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #444;
+            max-width: 480px;
+            margin: 0;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+
+            .titleWrapper .title {
+                font-size: 32px;
+            }
+        }
     }
 
     .body {
@@ -53,22 +107,17 @@
     .modal {
         height: 100%;
         width: 100%;
+        position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
-    }
-    
-    .modal img {
-        height: auto;
-        max-width: 100%;
-        object-fit: contain;
     }
     
     .cursor, .cursorLabel {
         width: 80px;
         height: 80px;
         border-radius: 50%;
-        background-color: #455CE9;
+        background-color: #203B5A;
         color: white;
         position: fixed;
         z-index: 3;

@@ -3,56 +3,38 @@ import { useState, useRef } from 'react';
 import styles from './style.module.scss';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { reveal } from './animation';
+import { useLanguage } from '../../context/LanguageContext';
 
-const experiences = [
-  {
-    id: "icesi",
-    role: "Marketing & Identity Delegate",
-    organization: "Student Council - Universidad ICESI",
-    period: "2025 → Present",
-    tag: "INSTITUTIONAL LEADERSHIP",
-    description: "Leader in charge of projecting the Student Council's identity and strengthening its link with the student body. Responsible for narrative management, strategic communication, and institutional campaign positioning.",
-    skills: ["Strategic Communication", "Brand Positioning", "Community Engagement", "Public Relations"]
-  },
-  {
-    id: "ieee",
-    role: "Marketing & Identity Lead",
-    organization: "IEEE Student Branch (ICESI)",
-    period: "2026 → Present",
-    tag: "TECHNICAL COMMUNITY",
-    description: "Communication strategist projecting technical excellence through modern visual identity and digital content. Leading cross-functional teams to execute high-impact engineering conferences and student mentoring initiatives.",
-    skills: ["Technical Events", "Team Mentoring", "Creative Direction", "Operations Management"]
-  }
-];
+const experienceOrder = ["icesi", "ieee"];
 
 const skillCategories = [
   {
-    category: "Management & Methods",
-    items: ["Agile & Scrum", "Design Patterns", "UML & Architecture", "Engineering Leadership"]
+    category: "Agentic Workflows & Orchestration",
+    items: ["LLM Integration", "RAG Pipelines", "Prompt Engineering", "Multi-Agent Coordination"]
   },
   {
-    category: "Languages",
-    items: ["Java", "Python", "SQL", "JavaScript / TypeScript"]
+    category: "System Design & Architecture",
+    items: ["UML & Architecture", "Design Patterns", "Spring Boot · Django · Next.js", "Docker & Cloud CI"]
   },
   {
-    category: "Frameworks & Backend",
-    items: ["Spring Boot", "Django", "Next.js & React", "Node.js", "Docker"]
+    category: "Security & Guardrails",
+    items: ["Applied Cybersecurity", "Access Control & Auth", "API Threat Surface", "Threat Modeling"]
   },
   {
-    category: "Databases & Cloud",
-    items: ["PostgreSQL", "MongoDB", "MySQL", "RESTful APIs", "Vercel / Cloud CI"]
-  },
-  {
-    category: "AI & Security",
-    items: ["LLM Integration", "RAG Pipelines", "Prompt Engineering", "Applied Cybersecurity"]
+    category: "AI Auditing & Evaluation",
+    items: ["Model Evaluation Pipelines", "Hallucination Mitigation", "Observability (OpenTelemetry)", "Engineering Governance"]
   }
 ];
+
+const coreStack = ["Java", "Python", "SQL", "TypeScript", "PostgreSQL", "MongoDB", "MySQL", "RESTful APIs"];
 
 export default function Experience() {
   const [activeExp, setActiveExp] = useState(0);
   const [expandedCol, setExpandedCol] = useState(null);
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.15 });
+  const { t } = useLanguage();
+  const experiences = experienceOrder.map((id) => ({ id, ...t.capabilities.experiences[id] }));
 
   const toggleCol = (idx) => {
     setExpandedCol((prev) => (prev === idx ? null : idx));
@@ -69,11 +51,11 @@ export default function Experience() {
           animate={isInView ? "visible" : "hidden"}
         >
           <div className={styles.titleWrapper}>
-            <span className={styles.sectionTag}>Engineering & Expertise</span>
-            <h2 className={styles.title}>Key Initiatives & Experience</h2>
+            <span className={styles.sectionTag}>{t.capabilities.eyebrow}</span>
+            <h2 className={styles.title}>{t.capabilities.title}</h2>
           </div>
           <p className={styles.subtitle}>
-            Blending engineering rigor with proactive leadership and clear strategic communication.
+            {t.capabilities.subtitle}
           </p>
         </motion.div>
 
@@ -138,7 +120,7 @@ export default function Experience() {
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
-          <h3 className={styles.matrixTitle}>Technical Stack & Core Competencies</h3>
+          <h3 className={styles.matrixTitle}>{t.capabilities.matrixTitle}</h3>
           <div className={styles.matrixGrid}>
             {skillCategories.map((cat, idx) => {
               const isExpanded = expandedCol === idx;
@@ -171,6 +153,14 @@ export default function Experience() {
                 </motion.div>
               );
             })}
+          </div>
+          <div className={styles.coreStack}>
+            <span className={styles.coreStackLabel}>{t.capabilities.coreStackLabel}</span>
+            <div className={styles.coreStackChips}>
+              {coreStack.map((tech) => (
+                <span key={tech} className={styles.stackChip}>{tech}</span>
+              ))}
+            </div>
           </div>
         </motion.div>
 

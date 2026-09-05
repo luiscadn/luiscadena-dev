@@ -1,7 +1,18 @@
+:root{
+    --paper: #F8FAFC;
+    --ink: #1C1B20;
+    --navy: #203B5A;
+    --sky: #8BA9C6;
+    --lime: #A3D900;
+    --crimson: #A82835;
+}
+
 body{
     margin: 0px;
     padding: 0;
     box-sizing: border-box;
     overflow: hidden; /* Hide scrollbars */
     cursor: wait;
+    background-color: var(--paper);
+    color: var(--ink);
 }
