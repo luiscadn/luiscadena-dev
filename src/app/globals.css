@@ -7,6 +7,10 @@
     --crimson: #A82835;
 }
 
+html{
+    position: relative;
+}
+
 body{
     margin: 0px;
     padding: 0;

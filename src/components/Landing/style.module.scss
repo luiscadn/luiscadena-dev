@@ -11,6 +11,8 @@
     .sliderContainer{
       position: absolute;
       top: calc(100vh - 350px);
+      width: 100vw;
+      overflow: hidden;
 
       @media (max-width: 768px) {
         top: auto;
@@ -24,10 +26,6 @@
       width: max-content;
       animation: marquee 22s linear infinite;
       will-change: transform;
-
-      @media (prefers-reduced-motion: reduce) {
-        animation-play-state: paused;
-      }
     }
 
     @keyframes marquee {

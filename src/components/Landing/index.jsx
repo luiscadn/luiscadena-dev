@@ -10,26 +10,23 @@ import { useLanguage } from '../../context/LanguageContext';
 
 export default function Home() {
 
-  const sliderContainer = useRef(null);
+  const slider = useRef(null);
   const { t } = useLanguage();
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
-    const tween = gsap.to(sliderContainer.current, {
-      x: -160,
-      ease: "none",
-      scrollTrigger: {
-        trigger: document.documentElement,
-        scrub: 0.5,
-        start: 0,
-        end: window.innerHeight,
+    const trigger = ScrollTrigger.create({
+      trigger: document.documentElement,
+      start: 0,
+      end: window.innerHeight,
+      onUpdate: (self) => {
+        if (slider.current) {
+          slider.current.style.animationDirection = self.direction === 1 ? "normal" : "reverse";
+        }
       },
     });
 
-    return () => {
-      tween.scrollTrigger?.kill();
-      tween.kill();
-    };
+    return () => trigger.kill();
   }, [])
 
   return (
@@ -43,8 +40,8 @@ export default function Home() {
         priority
         style={{ objectPosition: 'center 20%' }}
       />
-      <div ref={sliderContainer} className={styles.sliderContainer}>
-        <div className={styles.slider}>
+      <div className={styles.sliderContainer}>
+        <div ref={slider} className={styles.slider}>
           <p>{t.hero.marquee}</p>
           <p>{t.hero.marquee}</p>
         </div>

@@ -64,6 +64,7 @@ const scaleAnimation = {
 export default function Home() {
   const { t } = useLanguage();
   const [modal, setModal] = useState({ active: false, index: 0 })
+  const [openIndex, setOpenIndex] = useState(null)
   const { active, index } = modal;
   const modalContainer = useRef(null);
   const cursor = useRef(null);
@@ -107,10 +108,16 @@ export default function Home() {
   }
 
   const manageModal = (active, index, x, y) => {
+    if (active && index === openIndex) return
     if (window.innerWidth > 768) {
       moveItems(x, y)
     }
     setModal({ active, index })
+  }
+
+  const handleToggle = (idx) => {
+    setOpenIndex((prev) => (prev === idx ? null : idx))
+    setModal({ active: false, index: idx })
   }
 
   return (
@@ -132,6 +139,7 @@ export default function Home() {
         {
           projects.map((project, index) => {
             const copy = t.projects.items[project.id];
+            const isRepoLink = project.link.includes('github.com');
             return <Project
               index={index}
               title={project.title}
@@ -140,8 +148,12 @@ export default function Home() {
               architecture={project.architecture}
               impact={copy.impact}
               link={project.link}
+              src={project.src}
+              color={project.color}
               caseLabels={t.projects.caseLabels}
-              viewProjectLabel={t.projects.viewProject}
+              ctaLabel={isRepoLink ? t.projects.sourceCode : t.projects.exploreSystem}
+              isOpen={openIndex === index}
+              onToggle={() => handleToggle(index)}
               manageModal={manageModal}
               key={index}
             />

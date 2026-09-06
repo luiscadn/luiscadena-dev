@@ -21,29 +21,30 @@
         flex-wrap: wrap;
         gap: 20px;
         border-bottom: 1px solid #1c1b20;
-        padding-bottom: 30px;
+        padding-bottom: 32px;
         margin-bottom: 60px;
 
         .titleWrapper {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
 
             .sectionTag {
                 font-family: ui-monospace, "SF Mono", "Courier New", monospace;
                 font-size: 13px;
-                font-weight: 600;
+                font-weight: 500;
                 text-transform: uppercase;
-                letter-spacing: 2px;
-                color: #1c1b20;
+                letter-spacing: 0.12em;
+                color: #71717A;
             }
 
             .title {
-                font-size: 48px;
-                font-weight: 700;
+                font-size: 64px;
+                line-height: 1.1;
+                font-weight: 600;
                 margin: 0;
-                letter-spacing: -1px;
-                color: #1c1b20;
+                letter-spacing: -0.03em;
+                color: #1C1B20;
             }
         }
 
@@ -57,11 +58,11 @@
         }
 
         @media (max-width: 768px) {
-            padding-bottom: 20px;
+            padding-bottom: 24px;
             margin-bottom: 30px;
 
             .titleWrapper .title {
-                font-size: 32px;
+                font-size: 40px;
             }
         }
     }

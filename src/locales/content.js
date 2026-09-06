@@ -7,7 +7,7 @@ export const content = {
       contact: "Contact",
     },
     hero: {
-      marquee: "Agentic Systems • AI Architecture • Security & Guardrails •",
+      marquee: "Agentic Systems • AI Architecture • Systems Security •",
       role: "AI Systems Architect · Security & Orchestration",
       status: "Cali, CO · Systems Engineering · Available",
     },
@@ -51,6 +51,8 @@ export const content = {
       moreOnGithub: "More on GitHub",
       viewProject: "View project →",
       hoverView: "View",
+      exploreSystem: "Explore System ↗",
+      sourceCode: "Source Code →",
       caseLabels: {
         problem: "System decision",
         architecture: "Architecture",
@@ -91,7 +93,7 @@ export const content = {
       contact: "Contacto",
     },
     hero: {
-      marquee: "Sistemas Agénticos • Arquitectura de IA • Seguridad y Guardrails •",
+      marquee: "Sistemas Agénticos • Arquitectura de IA • Seguridad de Sistemas •",
       role: "Arquitecto de Sistemas de IA · Seguridad y Orquestación",
       status: "Cali, CO · Ingeniería de Sistemas · Disponible",
     },
@@ -135,6 +137,8 @@ export const content = {
       moreOnGithub: "Más en GitHub",
       viewProject: "Ver proyecto →",
       hoverView: "Ver",
+      exploreSystem: "Explorar Sistema ↗",
+      sourceCode: "Ver Código Fuente →",
       caseLabels: {
         problem: "Decisión de sistema",
         architecture: "Arquitectura",

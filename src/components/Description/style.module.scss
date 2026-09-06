@@ -85,7 +85,8 @@
             }
 
             .button {
-                position: static;
+                position: relative;
+                overflow: hidden;
                 width: 100%;
                 max-width: 384px;
                 height: auto;
@@ -99,6 +100,11 @@
                 justify-content: space-between;
                 text-align: left;
                 outline: none;
+                transition: transform 0.15s ease;
+
+                &:active{
+                    transform: scale(0.97);
+                }
 
                 > a {
                     display: flex;

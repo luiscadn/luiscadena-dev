@@ -27,4 +27,18 @@
     position: absolute;
     border-radius: 50%;
     top: 100%;
+
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .roundedButton{
+        transition: transform 0.15s ease;
+
+        &:active{
+            transform: scale(0.97);
+        }
+    }
 }
