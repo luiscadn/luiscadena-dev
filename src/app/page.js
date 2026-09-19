@@ -8,6 +8,7 @@ import Projects from '../components/Projects';
 import Description from '../components/Description';
 import Experience from '../components/Experience';
 import Contact from '../components/Contact';
+import WhiteCosmos from '../common/WhiteCosmos';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -43,6 +44,7 @@ export default function Home() {
       <AnimatePresence mode="wait">
         {isLoading && <Preloader />}
       </AnimatePresence>
+      <WhiteCosmos />
       <Landing />
       <Description />
       <Experience />
