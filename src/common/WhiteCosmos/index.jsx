@@ -37,17 +37,17 @@ export default function WhiteCosmos() {
       constructor(w, h, isMobile) {
         this.x = Math.random() * (w - 160) + 80;
         this.y = Math.random() * (h - 160) + 80;
-        const speed = isMobile ? 0.12 : 0.18;
+        const speed = isMobile ? 0.08 : 0.12;
         this.vx = (Math.random() - 0.5) * speed;
         this.vy = (Math.random() - 0.5) * speed;
-        this.radius = isMobile ? (Math.random() * 60 + 75) : (Math.random() * 85 + 110);
+        this.radius = isMobile ? (Math.random() * 50 + 75) : (Math.random() * 70 + 100);
       }
 
       update(w, h) {
         this.x += this.vx;
         this.y += this.vy;
-        if (this.x < 50 || this.x > w - 50) this.vx *= -1;
-        if (this.y < 50 || this.y > h - 50) this.vy *= -1;
+        if (this.x < 60 || this.x > w - 60) this.vx *= -1;
+        if (this.y < 60 || this.y > h - 60) this.vy *= -1;
       }
     }
 
@@ -59,26 +59,26 @@ export default function WhiteCosmos() {
       }
 
       reset(w, h, isMobile, initial = false) {
-        if (this.clusterHub && initial) {
+        if (this.clusterHub) {
           // Spawn tightly grouped around cluster centroid
           const angle = Math.random() * Math.PI * 2;
-          const dist = Math.random() * this.clusterHub.radius;
+          const dist = Math.random() * this.clusterHub.radius * 0.85;
           this.x = this.clusterHub.x + Math.cos(angle) * dist;
           this.y = this.clusterHub.y + Math.sin(angle) * dist;
         } else {
           this.x = Math.random() * w;
-          this.y = initial ? Math.random() * h : (Math.random() < 0.5 ? -10 : h + 10);
+          this.y = Math.random() * h;
         }
 
-        // Slight organic drift
-        const speed = isMobile ? 0.22 : 0.28;
+        // Calm, serene organic drift (no runaway fast travel)
+        const speed = isMobile ? 0.12 : 0.16;
         this.vx = (Math.random() - 0.5) * speed;
         this.vy = (Math.random() - 0.5) * speed;
 
         // Depth factor (0.3 to 1.0)
         this.depth = Math.random() * 0.7 + 0.3;
 
-        // Higher visibility: radius 1.4px - 3.2px, beacons 3.6px - 4.6px
+        // High visibility: radius 1.4px - 3.2px, beacons 3.6px - 4.6px
         if (this.isBeacon) {
           this.baseRadius = (Math.random() * 0.8 + 3.6);
           this.accentColor = ACCENT_COLORS[Math.floor(Math.random() * ACCENT_COLORS.length)];
@@ -86,7 +86,7 @@ export default function WhiteCosmos() {
         } else {
           this.baseRadius = (Math.random() * 1.5 + 1.3) * this.depth;
           this.accentColor = null;
-          // High notoriety baseAlpha: 0.38 to 0.75 (no more faint invisible dots!)
+          // High notoriety baseAlpha: 0.38 to 0.75
           this.baseAlpha = (Math.random() * 0.35 + 0.38);
         }
 
@@ -99,15 +99,40 @@ export default function WhiteCosmos() {
         this.y += this.vy;
         this.pulsePhase += this.pulseSpeed;
 
-        // Soft gravitational spring toward cluster centroid if clustered
+        // Gentle spring toward cluster centroid if clustered (soft, strictly bounded)
         if (this.clusterHub) {
-          const cdx = this.clusterHub.x - this.x;
-          const cdy = this.clusterHub.y - this.y;
+          let cdx = this.clusterHub.x - this.x;
+          let cdy = this.clusterHub.y - this.y;
+
+          // Shortest toroidal path to avoid slingshotting across screen wraps
+          if (cdx > w / 2) cdx -= w;
+          if (cdx < -w / 2) cdx += w;
+          if (cdy > h / 2) cdy -= h;
+          if (cdy < -h / 2) cdy += h;
+
           const cdist = Math.hypot(cdx, cdy);
-          if (cdist > this.clusterHub.radius * 0.85) {
-            this.vx += (cdx / cdist) * 0.007;
-            this.vy += (cdy / cdist) * 0.007;
+          if (cdist > this.clusterHub.radius * 0.8) {
+            const excess = (cdist - this.clusterHub.radius * 0.8) / this.clusterHub.radius;
+            const pull = Math.min(excess * 0.003, 0.004);
+            this.vx += (cdx / cdist) * pull;
+            this.vy += (cdy / cdist) * pull;
           }
+        }
+
+        // Apply frictional damping to prevent any velocity accumulation
+        this.vx *= 0.985;
+        this.vy *= 0.985;
+
+        // Strict speed clamp to eliminate fast traveling runaway nodes
+        const maxSpeed = isMobile ? 0.20 : 0.26;
+        const currentSpeed = Math.hypot(this.vx, this.vy);
+        if (currentSpeed > maxSpeed) {
+          this.vx = (this.vx / currentSpeed) * maxSpeed;
+          this.vy = (this.vy / currentSpeed) * maxSpeed;
+        } else if (currentSpeed < 0.04) {
+          // Keep a micro-drift alive so nodes remain organic
+          this.vx += (Math.random() - 0.5) * 0.02;
+          this.vy += (Math.random() - 0.5) * 0.02;
         }
 
         // Wrap around boundaries smoothly
@@ -116,14 +141,14 @@ export default function WhiteCosmos() {
         if (this.y < -30) this.y = h + 30;
         else if (this.y > h + 30) this.y = -30;
 
-        // Interactive mouse deflection / attraction
+        // Interactive mouse deflection / attraction (gentle)
         if (mouse.x !== null && mouse.y !== null) {
           const dx = mouse.x - this.x;
           const dy = mouse.y - this.y;
           const dist = Math.hypot(dx, dy);
 
           if (dist < mouse.radius && dist > 0) {
-            const force = (1 - dist / mouse.radius) * 0.85;
+            const force = (1 - dist / mouse.radius) * 0.45;
             this.x += (dx / dist) * force * this.depth;
             this.y += (dy / dist) * force * this.depth;
           }
@@ -179,24 +204,19 @@ export default function WhiteCosmos() {
         hubs.push(new ClusterHub(width, height, isMobile));
       }
 
-      // 2. Initialize Nodes (Grouped into clusters + bridge nodes)
+      // 2. Initialize Nodes (All anchored to cluster hubs, eliminating unanchored rogue wanderers)
       nodes = [];
-      const nodesPerHub = Math.floor((totalNodes * 0.68) / hubCount);
+      const baseNodesPerHub = Math.floor(totalNodes / hubCount);
+      const extraNodes = totalNodes % hubCount;
 
-      // Clustered nodes around each hub
-      hubs.forEach((hub) => {
-        // First node is the beacon star of this cluster
+      hubs.forEach((hub, index) => {
+        // Beacon star for this constellation cluster
         nodes.push(new Node(width, height, isMobile, hub, true));
-        for (let i = 1; i < nodesPerHub; i++) {
+        const count = baseNodesPerHub + (index < extraNodes ? 1 : 0);
+        for (let i = 1; i < count; i++) {
           nodes.push(new Node(width, height, isMobile, hub, false));
         }
       });
-
-      // Remaining nodes act as free transit / synaptic bridges between clusters
-      const remaining = totalNodes - nodes.length;
-      for (let r = 0; r < remaining; r++) {
-        nodes.push(new Node(width, height, isMobile, null, false));
-      }
     };
 
     resize();
