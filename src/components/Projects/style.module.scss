@@ -80,7 +80,7 @@
             margin-bottom: 30px;
         }
     }
-    
+
     .modalContainer {
         height: 350px;
         width: 400px;
@@ -97,14 +97,14 @@
             width: 280px;
         }
     }
-    
+
     .modalSlider {
         height: 100%;
         width: 100%;
         position: relative;
         transition: top 0.5s cubic-bezier(0.76, 0, 0.24, 1);
     }
-    
+
     .modal {
         height: 100%;
         width: 100%;
@@ -113,12 +113,13 @@
         align-items: center;
         justify-content: center;
     }
-    
-    .cursor, .cursorLabel {
+
+    .cursor,
+    .cursorLabel {
         width: 80px;
         height: 80px;
         border-radius: 50%;
-        background-color: #203B5A;
+        background-color: #464B50;
         color: white;
         position: fixed;
         z-index: 3;
@@ -130,7 +131,7 @@
         pointer-events: none;
 
     }
-    
+
     .cursorLabel {
         background-color: transparent;
     }

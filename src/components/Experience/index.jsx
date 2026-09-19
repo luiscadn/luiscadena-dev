@@ -10,18 +10,22 @@ const experienceOrder = ["icesi", "ieee"];
 const skillCategories = [
   {
     category: "Agentic Workflows & Orchestration",
+    color: "#A3D900", // Lime Green (from left sculpture frame)
     items: ["LLM Integration", "RAG Pipelines", "Prompt Engineering", "Multi-Agent Coordination"]
   },
   {
     category: "System Design & Architecture",
+    color: "#00D8F6", // Electric Cyan (from inner sculpture stripes and sky)
     items: ["UML & Architecture", "Design Patterns", "Spring Boot · Django · Next.js", "Docker & Cloud CI"]
   },
   {
     category: "Security & Guardrails",
+    color: "#FF007A", // Vibrant Magenta / Pink (from right sculpture frame)
     items: ["Applied Cybersecurity", "Access Control & Auth", "API Threat Surface", "Threat Modeling"]
   },
   {
     category: "AI Auditing & Evaluation",
+    color: "#A855F7", // Electric Violet (from World neon speech bubble)
     items: ["Model Evaluation Pipelines", "Hallucination Mitigation", "Observability (OpenTelemetry)", "Engineering Governance"]
   }
 ];
@@ -128,6 +132,7 @@ export default function Experience() {
                 <motion.div
                   key={cat.category}
                   className={`${styles.matrixCol} ${isExpanded ? styles.expanded : ''}`}
+                  style={{ '--col-accent': cat.color }}
                   variants={reveal}
                   custom={idx * 0.5 + 3}
                   initial="hidden"

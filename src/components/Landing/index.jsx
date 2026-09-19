@@ -38,7 +38,8 @@ export default function Home() {
         alt="Luis Felipe Cadena"
         sizes="100vw"
         priority
-        style={{ objectPosition: 'center 20%' }}
+        quality={95}
+        className={styles.heroImage}
       />
       <div className={styles.sliderContainer}>
         <div ref={slider} className={styles.slider}>
@@ -47,16 +48,15 @@ export default function Home() {
         </div>
       </div>
       <div className={styles.description}>
-        <svg width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 8.5C8.27614 8.5 8.5 8.27614 8.5 8L8.5 3.5C8.5 3.22386 8.27614 3 8 3C7.72386 3 7.5 3.22386 7.5 3.5V7.5H3.5C3.22386 7.5 3 7.72386 3 8C3 8.27614 3.22386 8.5 3.5 8.5L8 8.5ZM0.646447 1.35355L7.64645 8.35355L8.35355 7.64645L1.35355 0.646447L0.646447 1.35355Z" fill="white" />
-        </svg>
         <div className={styles.badge}>
-          <p className={styles.name}>Luis Felipe Cadena</p>
+          <div className={styles.badgeHeader}>
+            <h1 className={styles.name}>Luis Felipe Cadena</h1>
+            <div className={styles.statusBadge}>
+              <span className={styles.dot} />
+              <span className={styles.statusText}>{t.hero.statusBadge || 'Open to work'}</span>
+            </div>
+          </div>
           <p className={styles.role}>{t.hero.role}</p>
-          <p className={styles.status}>
-            <span className={styles.dot} />
-            {t.hero.status}
-          </p>
         </div>
       </div>
     </motion.main>

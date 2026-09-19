@@ -7,9 +7,12 @@ export const content = {
       contact: "Contact",
     },
     hero: {
-      marquee: "Agentic Systems • AI Architecture • Systems Security •",
+      marquee: "Agentic AI • Architecture • Security •",
       role: "AI Systems Architect · Security & Orchestration",
-      status: "Cali, CO · Systems Engineering · Available",
+      statusBadge: "Open to work",
+      location: "Cali, Colombia",
+      education: "Systems Engineering",
+      status: "Cali, CO · Systems Engineering · Open to work",
     },
     about: {
       headline: "I design and audit the systems behind AI products: how agents are orchestrated, where models fail, and what governs them before they ship.",
@@ -93,8 +96,11 @@ export const content = {
       contact: "Contacto",
     },
     hero: {
-      marquee: "Sistemas Agénticos • Arquitectura de IA • Seguridad de Sistemas •",
-      role: "Arquitecto de Sistemas de IA · Seguridad y Orquestación",
+      marquee: "IA Agéntica • Arquitectura • Seguridad •",
+      role: "Arquitecto de Sistemas IA · Seguridad & Orquestación",
+      statusBadge: "Disponible",
+      location: "Cali, Colombia",
+      education: "Ingeniería de Sistemas",
       status: "Cali, CO · Ingeniería de Sistemas · Disponible",
     },
     about: {

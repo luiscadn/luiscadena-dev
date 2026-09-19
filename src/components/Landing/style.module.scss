@@ -2,21 +2,27 @@
     position: relative;
     display: flex;
     height: 100vh;
+    height: 100dvh;
     overflow: hidden;
 
-    img{
+    .heroImage{
       object-fit: cover;
+      object-position: center 18%;
+
+      @media (max-width: 768px) {
+        object-position: center 0%;
+      }
     }
     
     .sliderContainer{
       position: absolute;
-      top: calc(100vh - 350px);
+      top: calc(100vh - 300px);
       width: 100vw;
       overflow: hidden;
 
       @media (max-width: 768px) {
         top: auto;
-        bottom: 80px;
+        bottom: 92px;
         z-index: 1;
       }
     }
@@ -38,98 +44,147 @@
       white-space: nowrap;
       margin: 0px;
       color: white;
-      font-size: 230px;
+      font-size: 140px;
       font-weight: 500;
-      padding-right: 50px;
+      padding-right: 48px;
+
+      @media (max-width: 768px) {
+        font-size: clamp(32px, 9vw, 44px);
+        color: rgba(255, 255, 255, 0.28);
+        padding-right: 20px;
+      }
     }
   
     .description{
       position: absolute;
-      top: 38%;
-      left: 68%;
-      right: 24px;
+      top: 36%;
+      left: 64%;
+      right: 36px;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-
-      svg{
-        transform: scale(2);
-        margin-bottom: 24px;
-      }
+      z-index: 10;
 
       .badge{
-        display: inline-flex;
+        display: flex;
         flex-direction: column;
         gap: 6px;
-        width: fit-content;
-        max-width: 100%;
-        background-color: #1C1B20;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 0;
+        width: 100%;
+        max-width: 420px;
+        background: rgba(18, 18, 22, 0.85);
+        backdrop-filter: blur(20px) saturate(190%);
+        -webkit-backdrop-filter: blur(20px) saturate(190%);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 14px;
         padding: 12px 18px;
+        box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.55), 
+                    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
-        p{
-          margin: 0px;
+        &:hover {
+          border-color: rgba(255, 255, 255, 0.24);
+          box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.65), 
+                      inset 0 1px 0 rgba(255, 255, 255, 0.25);
         }
 
-        .name{
-          font-weight: 700;
-          font-size: 20px;
-          color: #FFFFFF;
-        }
-
-        .role{
-          font-family: ui-monospace, "SF Mono", "Courier New", monospace;
-          font-size: 13px;
-          font-weight: 500;
-          color: rgba(255, 255, 255, 0.8);
-        }
-
-        .status{
+        .badgeHeader {
           display: flex;
           align-items: center;
-          gap: 7px;
-          margin-top: 2px;
-          font-family: ui-monospace, "SF Mono", "Courier New", monospace;
-          font-size: 11px;
-          font-weight: 500;
-          letter-spacing: 0.04em;
-          color: rgba(255, 255, 255, 0.55);
+          justify-content: space-between;
+          gap: 12px;
 
-          .dot{
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background-color: #A3D900;
-            box-shadow: 0 0 0 3px rgba(163, 217, 0, 0.18);
-            flex-shrink: 0;
+          .name {
+            font-size: 17px;
+            font-weight: 700;
+            color: #FFFFFF;
+            letter-spacing: -0.01em;
+            margin: 0;
+            line-height: 1.2;
+            white-space: nowrap;
           }
+
+          .statusBadge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(163, 217, 0, 0.12);
+            border: 1px solid rgba(163, 217, 0, 0.35);
+            border-radius: 999px;
+            padding: 2.5px 8px;
+            flex-shrink: 0;
+
+            .dot {
+              width: 5px;
+              height: 5px;
+              border-radius: 50%;
+              background-color: #A3D900;
+              box-shadow: 0 0 0 2px rgba(163, 217, 0, 0.25);
+              animation: pulseBeacon 2.2s ease-in-out infinite;
+            }
+
+            .statusText {
+              font-family: ui-monospace, "SF Mono", "Courier New", monospace;
+              font-size: 10px;
+              font-weight: 600;
+              text-transform: uppercase;
+              letter-spacing: 0.05em;
+              color: #A3D900;
+            }
+          }
+        }
+
+        .role {
+          font-family: ui-monospace, "SF Mono", "Courier New", monospace;
+          font-size: 11.5px;
+          line-height: 1.4;
+          font-weight: 500;
+          color: rgba(248, 250, 252, 0.88);
+          margin: 0;
         }
       }
 
       @media (max-width: 768px) {
         top: auto;
-        bottom: 24px;
-        left: 20px;
-        right: auto;
+        bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+        left: 12px;
+        right: 12px;
+        width: auto;
         z-index: 10;
 
-        svg{
-          transform: scale(1.6);
-          margin-bottom: 16px;
-        }
-
-        .badge{
+        .badge {
+          width: 100%;
+          max-width: 100%;
           padding: 10px 14px;
+          gap: 4px;
+          border-radius: 12px;
 
-          .name{
-            font-size: 17px;
+          .badgeHeader {
+            .name {
+              font-size: 15.5px;
+            }
+
+            .statusBadge {
+              padding: 2px 7px;
+              .statusText {
+                font-size: 9.5px;
+              }
+            }
           }
-          .role{
+
+          .role {
             font-size: 11px;
+            line-height: 1.35;
           }
         }
       }
     }
+}
+
+@keyframes pulseBeacon {
+  0%, 100% {
+    box-shadow: 0 0 0 2px rgba(163, 217, 0, 0.2);
   }
-  
+  50% {
+    box-shadow: 0 0 0 5px rgba(163, 217, 0, 0.4);
+  }
+}
