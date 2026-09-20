@@ -25,22 +25,23 @@ export default function WhiteCosmos() {
 
     let scrollY = 0;
 
-    // Tech Accent Palette for Cluster Beacons
+    // Tech Accent Palette for Constellation Clusters
     const ACCENT_COLORS = [
-      { r: 163, g: 217, b: 0,   name: 'lime' },   // System Lime
-      { r: 0,   g: 216, b: 246, name: 'cyan' },   // Electric Cyan
-      { r: 139, g: 92,  b: 246, name: 'violet' }, // Tech Violet
+      { r: 163, g: 217, b: 0,   hex: '#A3D900', name: 'lime' },   // Verde de Sistema
+      { r: 0,   g: 216, b: 246, hex: '#00D8F6', name: 'cyan' },   // Cian Eléctrico
+      { r: 139, g: 92,  b: 246, hex: '#8B5CF6', name: 'violet' }, // Violeta Tech
     ];
 
     // Constellation Cluster Hubs (dynamic centroids)
     class ClusterHub {
-      constructor(w, h, isMobile) {
+      constructor(w, h, isMobile, colorIndex) {
         this.x = Math.random() * (w - 160) + 80;
         this.y = Math.random() * (h - 160) + 80;
         const speed = isMobile ? 0.08 : 0.12;
         this.vx = (Math.random() - 0.5) * speed;
         this.vy = (Math.random() - 0.5) * speed;
         this.radius = isMobile ? (Math.random() * 50 + 75) : (Math.random() * 70 + 100);
+        this.color = ACCENT_COLORS[colorIndex % ACCENT_COLORS.length];
       }
 
       update(w, h) {
@@ -55,6 +56,7 @@ export default function WhiteCosmos() {
       constructor(w, h, isMobile, hub = null, isBeacon = false) {
         this.clusterHub = hub;
         this.isBeacon = isBeacon;
+        this.color = hub ? hub.color : ACCENT_COLORS[Math.floor(Math.random() * ACCENT_COLORS.length)];
         this.reset(w, h, isMobile, true);
       }
 
@@ -78,16 +80,14 @@ export default function WhiteCosmos() {
         // Depth factor (0.3 to 1.0)
         this.depth = Math.random() * 0.7 + 0.3;
 
-        // High visibility: radius 1.4px - 3.2px, beacons 3.6px - 4.6px
+        // Fully Chromatic Tech Palette (System Lime, Electric Cyan, Tech Violet)
         if (this.isBeacon) {
-          this.baseRadius = (Math.random() * 0.8 + 3.6);
-          this.accentColor = ACCENT_COLORS[Math.floor(Math.random() * ACCENT_COLORS.length)];
-          this.baseAlpha = 0.85;
+          this.baseRadius = (Math.random() * 0.8 + 3.8);
+          this.baseAlpha = 0.92;
         } else {
-          this.baseRadius = (Math.random() * 1.5 + 1.3) * this.depth;
-          this.accentColor = null;
-          // High notoriety baseAlpha: 0.38 to 0.75
-          this.baseAlpha = (Math.random() * 0.35 + 0.38);
+          this.baseRadius = (Math.random() * 1.2 + 1.4) * this.depth;
+          // Luminous colored alpha: crisp and vibrant against white background
+          this.baseAlpha = (Math.random() * 0.30 + 0.48);
         }
 
         this.pulsePhase = Math.random() * Math.PI * 2;
@@ -160,23 +160,28 @@ export default function WhiteCosmos() {
         const renderY = this.y - (sY * (1 - this.depth) * 0.09) % height;
         const normalizedY = (renderY + height) % height;
 
-        const currentAlpha = this.baseAlpha + Math.sin(this.pulsePhase) * 0.12;
-        const finalAlpha = Math.max(0.18, Math.min(0.95, currentAlpha));
+        const currentAlpha = this.baseAlpha + Math.sin(this.pulsePhase) * 0.14;
+        const finalAlpha = Math.max(0.22, Math.min(0.98, currentAlpha));
+
+        const { r, g, b } = this.color;
 
         context.beginPath();
         context.arc(this.x, normalizedY, this.baseRadius, 0, Math.PI * 2);
 
-        if (this.isBeacon && this.accentColor) {
-          const { r, g, b } = this.accentColor;
+        if (this.isBeacon) {
+          // Primary Beacon Star with radiant chromatic glow
           context.fillStyle = `rgba(${r}, ${g}, ${b}, ${finalAlpha})`;
-          context.shadowColor = `rgba(${r}, ${g}, ${b}, 0.7)`;
-          context.shadowBlur = 10;
+          context.shadowColor = `rgba(${r}, ${g}, ${b}, 0.85)`;
+          context.shadowBlur = 12;
           context.fill();
           context.shadowBlur = 0; // reset
         } else {
-          // Rich System Charcoal Ink (#1C1B20)
-          context.fillStyle = `rgba(28, 27, 32, ${finalAlpha})`;
+          // Fully Chromatic Constellation Node (No black ink!)
+          context.fillStyle = `rgba(${r}, ${g}, ${b}, ${finalAlpha})`;
+          context.shadowColor = `rgba(${r}, ${g}, ${b}, 0.35)`;
+          context.shadowBlur = 4;
           context.fill();
+          context.shadowBlur = 0; // reset
         }
       }
     }
@@ -198,13 +203,13 @@ export default function WhiteCosmos() {
       const hubCount = isMobile ? 3 : 6;
       const totalNodes = isMobile ? 48 : 96;
 
-      // 1. Initialize Cluster Hubs
+      // 1. Initialize Cluster Hubs with alternating tech colors
       hubs = [];
       for (let h = 0; h < hubCount; h++) {
-        hubs.push(new ClusterHub(width, height, isMobile));
+        hubs.push(new ClusterHub(width, height, isMobile, h));
       }
 
-      // 2. Initialize Nodes (All anchored to cluster hubs, eliminating unanchored rogue wanderers)
+      // 2. Initialize Nodes (All anchored to cluster hubs and colored by cluster)
       nodes = [];
       const baseNodesPerHub = Math.floor(totalNodes / hubCount);
       const extraNodes = totalNodes % hubCount;
@@ -258,7 +263,7 @@ export default function WhiteCosmos() {
         nodes[i].draw(ctx, scrollY);
       }
 
-      // 2. Draw neural network constellation edges between nearby nodes
+      // 2. Draw neural network constellation edges in luminous tech colors
       for (let i = 0; i < nodes.length; i++) {
         const nodeA = nodes[i];
         const renderYA = (nodeA.y - (scrollY * (1 - nodeA.depth) * 0.09) % height + height) % height;
@@ -278,31 +283,33 @@ export default function WhiteCosmos() {
           if (dist < maxConnectionDist) {
             const proximity = 1 - dist / maxConnectionDist;
             
-            // Noticeably higher lineAlpha: up to 0.35!
-            const lineAlpha = proximity * 0.32 * Math.min(nodeA.depth, nodeB.depth);
+            // Clean chromatic lineAlpha: energetic yet ethereal
+            const lineAlpha = proximity * 0.35 * Math.min(nodeA.depth, nodeB.depth);
 
             ctx.beginPath();
             ctx.moveTo(nodeA.x, renderYA);
             ctx.lineTo(nodeB.x, renderYB);
-            ctx.lineWidth = proximity * 0.65 + 0.45; // 0.45px to 1.1px dynamic thickness
+            ctx.lineWidth = proximity * 0.7 + 0.45; // 0.45px to 1.15px dynamic thickness
 
-            // If either node is a Beacon, line takes that vibrant accent tint
-            if (nodeA.isBeacon && nodeA.accentColor) {
-              const { r, g, b } = nodeA.accentColor;
-              ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${lineAlpha * 1.6})`;
-            } else if (nodeB.isBeacon && nodeB.accentColor) {
-              const { r, g, b } = nodeB.accentColor;
-              ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${lineAlpha * 1.6})`;
+            const colA = nodeA.color;
+            const colB = nodeB.color;
+
+            if (colA.name === colB.name) {
+              // Intra-cluster connection: luminous monochromatic hue
+              ctx.strokeStyle = `rgba(${colA.r}, ${colA.g}, ${colA.b}, ${lineAlpha * 1.5})`;
             } else {
-              // Charcoal line (#1C1B20) with high contrast
-              ctx.strokeStyle = `rgba(28, 27, 32, ${lineAlpha})`;
+              // Inter-cluster bridge: smooth linear gradient between the two cluster accents
+              const grad = ctx.createLinearGradient(nodeA.x, renderYA, nodeB.x, renderYB);
+              grad.addColorStop(0, `rgba(${colA.r}, ${colA.g}, ${colA.b}, ${lineAlpha * 1.4})`);
+              grad.addColorStop(1, `rgba(${colB.r}, ${colB.g}, ${colB.b}, ${lineAlpha * 1.4})`);
+              ctx.strokeStyle = grad;
             }
 
             ctx.stroke();
           }
         }
 
-        // 3. Connect nearby nodes to cursor with magnetic synapsis
+        // 3. Connect nearby nodes to cursor with magnetic synapsis in the node's color
         if (mouse.x !== null && mouse.y !== null) {
           const mdx = nodeA.x - mouse.x;
           const mdy = renderYA - mouse.y;
@@ -311,11 +318,12 @@ export default function WhiteCosmos() {
             const mDist = Math.hypot(mdx, mdy);
             if (mDist < mouse.radius) {
               const mProximity = 1 - mDist / mouse.radius;
+              const { r, g, b } = nodeA.color;
               ctx.beginPath();
               ctx.moveTo(nodeA.x, renderYA);
               ctx.lineTo(mouse.x, mouse.y);
-              ctx.lineWidth = mProximity * 0.8 + 0.4;
-              ctx.strokeStyle = `rgba(163, 217, 0, ${mProximity * 0.48})`; // Luminous lime link to cursor
+              ctx.lineWidth = mProximity * 0.9 + 0.4;
+              ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${mProximity * 0.55})`; // Dynamic color matching the node!
               ctx.stroke();
             }
           }
