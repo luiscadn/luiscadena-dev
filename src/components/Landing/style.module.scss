@@ -44,12 +44,12 @@
       white-space: nowrap;
       margin: 0px;
       color: white;
-      font-size: 140px;
-      font-weight: 500;
+      font-size: var(--text-display);
+      font-weight: 600;
       padding-right: 48px;
 
       @media (max-width: 768px) {
-        font-size: clamp(32px, 9vw, 44px);
+        font-size: var(--text-h1);
         color: rgba(255, 255, 255, 0.28);
         padding-right: 20px;
       }
@@ -94,12 +94,12 @@
           gap: 12px;
 
           .name {
-            font-size: 17px;
-            font-weight: 700;
+            font-size: var(--text-body-lg);
+            font-weight: 600;
             color: #FFFFFF;
-            letter-spacing: -0.01em;
+            letter-spacing: var(--tracking-tight);
             margin: 0;
-            line-height: 1.2;
+            line-height: var(--leading-snug);
             white-space: nowrap;
           }
 
@@ -123,20 +123,20 @@
             }
 
             .statusText {
-              font-family: ui-monospace, "SF Mono", "Courier New", monospace;
-              font-size: 10px;
-              font-weight: 600;
+              font-family: var(--font-sans);
+              font-size: var(--text-caption);
+              font-weight: 500;
               text-transform: uppercase;
-              letter-spacing: 0.05em;
+              letter-spacing: var(--tracking-wider);
               color: #A3D900;
             }
           }
         }
 
         .role {
-          font-family: ui-monospace, "SF Mono", "Courier New", monospace;
-          font-size: 11.5px;
-          line-height: 1.4;
+          font-family: var(--font-sans);
+          font-size: var(--text-caption);
+          line-height: var(--leading-snug);
           font-weight: 500;
           color: rgba(248, 250, 252, 0.88);
           margin: 0;
@@ -160,20 +160,20 @@
 
           .badgeHeader {
             .name {
-              font-size: 15.5px;
+              font-size: var(--text-body);
             }
 
             .statusBadge {
               padding: 2px 7px;
               .statusText {
-                font-size: 9.5px;
+                font-size: var(--text-caption);
               }
             }
           }
 
           .role {
-            font-size: 11px;
-            line-height: 1.35;
+            font-size: var(--text-caption);
+            line-height: var(--leading-snug);
           }
         }
       }

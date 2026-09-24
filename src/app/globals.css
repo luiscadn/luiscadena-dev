@@ -5,10 +5,42 @@
     --sky: #8BA9C6;
     --lime: #A3D900;
     --crimson: #A82835;
+
+    /* Font families */
+    --font-sans: var(--font-inter, 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+    --font-mono: 'SF Mono', 'Fira Code', Menlo, Consolas, Monaco, monospace;
+
+    /* Type scale */
+    --text-display: clamp(3.5rem, 7vw, 6rem);
+    --text-h1: clamp(2.25rem, 4vw, 3.5rem);
+    --text-h2: clamp(1.5rem, 2.5vw, 2rem);
+    --text-h3: 1.25rem;
+    --text-body-lg: 1.125rem;
+    --text-body: 1rem;
+    --text-body-sm: 0.875rem;
+    --text-caption: 0.75rem;
+
+    /* Line height */
+    --leading-tight: 1.1;
+    --leading-snug: 1.25;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.65;
+
+    /* Letter spacing */
+    --tracking-tight: -0.02em;
+    --tracking-tighter: -0.04em;
+    --tracking-wide: 0.05em;
+    --tracking-wider: 0.08em;
 }
 
 html{
     position: relative;
+    scroll-behavior: smooth;
+}
+
+::selection{
+    background-color: var(--lime);
+    color: var(--ink);
 }
 
 body{
@@ -19,4 +51,14 @@ body{
     cursor: wait;
     background-color: var(--paper);
     color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--leading-normal);
+}
+
+button,
+input,
+textarea,
+select{
+    font-family: inherit;
 }

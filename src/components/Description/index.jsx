@@ -11,7 +11,7 @@ export default function index() {
     const { t } = useLanguage();
     const phrase = t.about.headline;
     const description = useRef(null);
-    const isInView = useInView(description)
+    const isInView = useInView(description, { once: true, amount: 0.15 })
     return (
         <div ref={description} id='description' className={styles.description}>
             <div className={styles.body}>

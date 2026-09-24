@@ -17,7 +17,7 @@
         .nav{
             display: flex;
             flex-direction: column;
-            font-size: 56px;
+            font-size: var(--text-h1);
             gap: 12px;
             margin-top: 80px;
 
@@ -25,14 +25,17 @@
                 color: rgb(153, 153, 153);
                 border-bottom: 1px solid rgb(153, 153, 153);
                 text-transform: uppercase;
-                font-size: 11px;
+                font-family: var(--font-sans);
+                font-size: var(--text-caption);
+                font-weight: 500;
+                letter-spacing: var(--tracking-wider);
                 margin-bottom: 40px;
             }
 
             a{
                 text-decoration: none;
                 color: white;
-                font-weight: 300;
+                font-weight: 500;
             }
 
         }
@@ -40,7 +43,7 @@
 
     @media (max-width: 768px) {
         .body .nav{
-            font-size: clamp(32px, 8vw, 48px);
+            font-size: var(--text-h1);
         }
     }
 }

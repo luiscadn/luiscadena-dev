@@ -69,12 +69,14 @@
             }
 
             h2 {
-                font-size: 5vw;
+                font-size: var(--text-display);
+                line-height: 1.05;
                 margin: 0px;
-                font-weight: 300;
+                font-weight: 600;
+                letter-spacing: var(--tracking-tighter);
 
                 @media (max-width: 480px) {
-                    font-size: clamp(28px, 9vw, 40px);
+                    font-size: clamp(2.5rem, 9vw, 3.5rem);
                     text-align: center;
                 }
             }
@@ -136,7 +138,7 @@
                         span {
                             display: flex;
                             align-items: center;
-                            font-size: 16px;
+                            font-size: var(--text-body);
                             font-weight: 500;
                             line-height: 24px;
                             height: 24px;
@@ -145,7 +147,7 @@
                 }
 
                 .connectArrow {
-                    font-size: 16px;
+                    font-size: var(--text-body);
                     display: inline-block;
                     line-height: 1;
                     transition: transform 0.35s cubic-bezier(0.76, 0, 0.24, 1);
@@ -178,7 +180,7 @@
                         height: 20px;
 
                         .labelTrack span {
-                            font-size: 14px;
+                            font-size: var(--text-body-sm);
                             height: 20px;
                             line-height: 20px;
                         }
@@ -272,7 +274,7 @@
                 h3 {
                     color: grey;
                     cursor: default;
-                    font-weight: 300;
+                    font-weight: 400;
                     font-size: 1em;
                 }
             }

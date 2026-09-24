@@ -145,12 +145,12 @@ export default function Experience() {
                 >
                   <h4 className={styles.matrixCategory}>
                     <span>{cat.category}</span>
-                    <span className={styles.matrixCount}>{String(cat.items.length).padStart(2, '0')}</span>
+                    <span className={styles.matrixCount}>{cat.items.length}</span>
                   </h4>
                   <ul className={styles.skillsList}>
                     {cat.items.map((item, itemIdx) => (
                       <li key={itemIdx} className={styles.matrixItem}>
-                        <span className={styles.bullet}>{String(itemIdx + 1).padStart(2, '0')}</span>
+                        <span className={styles.bullet} aria-hidden="true">&bull;</span>
                         {item}
                       </li>
                     ))}

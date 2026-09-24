@@ -15,10 +15,10 @@
 
   .header {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    flex-wrap: wrap;
-    gap: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    max-width: 800px;
     border-bottom: 1px solid #1c1b20;
     padding-bottom: 32px;
 
@@ -28,31 +28,31 @@
       gap: 10px;
 
       .sectionTag {
-        font-family: ui-monospace, "SF Mono", "Courier New", monospace;
-        font-size: 13px;
+        font-family: var(--font-sans);
+        font-size: var(--text-caption);
         font-weight: 500;
         text-transform: uppercase;
-        letter-spacing: 0.12em;
+        letter-spacing: var(--tracking-wider);
         color: #71717A;
       }
 
       .title {
-        font-size: 64px;
-        line-height: 1.1;
+        font-size: var(--text-h1);
+        line-height: var(--leading-tight);
         font-weight: 600;
         margin: 0;
-        letter-spacing: -0.03em;
+        letter-spacing: var(--tracking-tight);
         color: #1C1B20;
       }
     }
 
     .subtitle {
-      font-size: 18px;
-      color: #444;
+      font-size: var(--text-body-lg);
+      color: #52525B;
       max-width: 480px;
       margin: 0;
-      font-weight: 300;
-      line-height: 1.5;
+      font-weight: 400;
+      line-height: var(--leading-relaxed);
     }
   }
 
@@ -108,21 +108,21 @@
       }
 
       .tabOrg {
-        font-family: ui-monospace, "SF Mono", "Courier New", monospace;
-        font-size: 13px;
+        font-family: var(--font-sans);
+        font-size: var(--text-caption);
         font-weight: 500;
         color: #666;
       }
 
       .tabRole {
-        font-size: 18px;
+        font-size: var(--text-body-lg);
         font-weight: 600;
         color: #1c1b20;
       }
 
       .tabPeriod {
-        font-family: ui-monospace, "SF Mono", "Courier New", monospace;
-        font-size: 12px;
+        font-family: var(--font-sans);
+        font-size: var(--text-caption);
         font-weight: 500;
         color: #71717A;
         margin-top: 4px;
@@ -155,10 +155,10 @@
       flex-wrap: wrap;
 
       .cardTag {
-        font-family: ui-monospace, "SF Mono", "Courier New", monospace;
-        font-size: 12px;
+        font-family: var(--font-sans);
+        font-size: var(--text-caption);
         font-weight: 500;
-        letter-spacing: 0.12em;
+        letter-spacing: var(--tracking-wider);
         color: #71717A;
         text-transform: uppercase;
         display: block;
@@ -166,25 +166,25 @@
       }
 
       .cardRole {
-        font-size: 26px;
-        font-weight: 700;
+        font-size: var(--text-h2);
+        font-weight: 600;
         color: #1c1b20;
         margin: 0;
       }
 
       .cardOrg {
-        font-size: 16px;
+        font-size: var(--text-body);
         font-weight: 400;
         color: #555;
         margin: 4px 0 0 0;
       }
 
       .cardPeriodBadge {
-        font-family: ui-monospace, "SF Mono", "Courier New", monospace;
+        font-family: var(--font-sans);
         background: transparent;
         border: 1px solid rgba(28, 27, 32, 0.18);
         color: #1C1B20;
-        font-size: 12px;
+        font-size: var(--text-caption);
         font-weight: 500;
         padding: 4px 10px;
         border-radius: 0;
@@ -192,11 +192,11 @@
     }
 
     .cardDescription {
-      font-size: 17px;
-      line-height: 1.6;
+      font-size: var(--text-body-lg);
+      line-height: var(--leading-relaxed);
       color: #333;
       margin: 0;
-      font-weight: 300;
+      font-weight: 400;
     }
 
     .cardSkills {
@@ -206,13 +206,12 @@
       margin-top: 8px;
 
       .skillPill {
-        font-family: ui-monospace, "SF Mono", "Courier New", monospace;
-        background: #ffffff;
-        border: 1px solid #1c1b20;
-        color: #1c1b20;
+        background: rgba(28, 27, 32, 0.05);
+        border: 1px solid rgba(28, 27, 32, 0.08);
+        color: #27272A;
         padding: 6px 14px;
-        border-radius: 0;
-        font-size: 13px;
+        border-radius: 999px;
+        font-size: var(--text-caption);
         font-weight: 500;
       }
     }
@@ -224,8 +223,8 @@
     border-top: 1px solid #1c1b20;
 
     .matrixTitle {
-      font-size: 24px;
-      font-weight: 700;
+      font-size: var(--text-h2);
+      font-weight: 600;
       color: #1c1b20;
       margin-bottom: 30px;
     }
@@ -287,7 +286,7 @@
       }
 
       .matrixCategory {
-        font-size: 16px;
+        font-size: var(--text-body);
         font-weight: 600;
         color: #1c1b20;
         margin: 0;
@@ -299,8 +298,8 @@
         transition: color 0.15s ease, border-color 0.15s ease;
 
         .matrixCount {
-          font-family: ui-monospace, "SF Mono", "Courier New", monospace;
-          font-size: 13px;
+          font-family: var(--font-sans);
+          font-size: var(--text-caption);
           font-weight: 500;
           color: #1c1b20;
           transition: color 0.15s ease;
@@ -320,8 +319,8 @@
         transition: max-height 0.3s ease, opacity 0.25s ease, margin-top 0.3s ease;
 
         .matrixItem {
-          font-family: ui-monospace, "SF Mono", "Courier New", monospace;
-          font-size: 14px;
+          font-family: var(--font-sans);
+          font-size: var(--text-body-sm);
           color: #555;
           display: flex;
           align-items: center;
@@ -329,7 +328,7 @@
           transition: color 0.15s ease;
 
           .bullet {
-            font-size: 12px;
+            font-size: var(--text-caption);
             color: #1c1b20;
             transition: color 0.15s ease;
           }
@@ -347,9 +346,11 @@
       border-top: 1px solid rgba(28, 27, 32, 0.12);
 
       .coreStackLabel {
-        font-family: ui-monospace, "SF Mono", "Courier New", monospace;
-        font-size: 12px;
-        font-weight: 600;
+        font-family: var(--font-sans);
+        font-size: var(--text-caption);
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: var(--tracking-wider);
         color: #71717A;
         white-space: nowrap;
       }
@@ -361,12 +362,13 @@
       }
 
       .stackChip {
-        font-family: ui-monospace, "SF Mono", "Courier New", monospace;
-        font-size: 12px;
-        color: #1c1b20;
-        background: transparent;
-        border: 1px solid rgba(28, 27, 32, 0.2);
-        padding: 4px 10px;
+        font-size: var(--text-caption);
+        font-weight: 500;
+        color: #27272A;
+        background: rgba(28, 27, 32, 0.05);
+        border: 1px solid rgba(28, 27, 32, 0.08);
+        border-radius: 999px;
+        padding: 6px 14px;
       }
     }
   }
@@ -378,7 +380,7 @@
       padding-bottom: 24px;
 
       .titleWrapper .title {
-        font-size: 40px;
+        font-size: var(--text-h2);
       }
     }
   }

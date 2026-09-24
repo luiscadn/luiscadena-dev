@@ -2,7 +2,7 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
-    font-size: 12px;
+    font-size: var(--text-caption);
     gap: 40px;
 
     a {

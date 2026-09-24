@@ -3,10 +3,10 @@ import { Inter } from 'next/font/google'
 import Header from '../components/Header';
 import { LanguageProvider } from '../context/LanguageContext';
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
-const title = 'Luis Felipe Cadena — AI Engineer & Systems Architect';
-const description = 'Luis Felipe Cadena Cortés — AI Engineer building intelligent systems, secure architectures, and applied software. Systems Engineering @ ICESI, based in Cali, Colombia.';
+const title = 'Luis Felipe Cadena - AI Engineer & Systems Architect';
+const description = 'Luis Felipe Cadena Cortés - AI Engineer building intelligent systems, secure architectures, and applied software. Systems Engineering @ ICESI, based in Cali, Colombia.';
 
 export const metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://luisfelipecadena.dev'),
@@ -31,7 +31,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={inter.variable}>
         <LanguageProvider>
           <Header />
           {children}

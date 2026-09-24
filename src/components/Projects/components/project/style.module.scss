@@ -21,15 +21,17 @@
     }
 
     h2 {
-        font-size: 60px;
+        font-size: clamp(2rem, 3vw, 2.75rem);
+        line-height: 1.15;
+        letter-spacing: var(--tracking-tight);
         margin: 0px;
-        font-weight: 400;
+        font-weight: 600;
         transition: all 0.4s;
     }
 
     p {
         transition: all 0.4s;
-        font-weight: 300;
+        font-weight: 400;
     }
 
     &:hover {
@@ -56,12 +58,12 @@
         }
 
         h2 {
-            font-size: clamp(22px, 5.5vw, 28px);
+            font-size: clamp(1.5rem, 5vw, 1.85rem);
         }
 
         p {
-            font-family: ui-monospace, "SF Mono", "Courier New", monospace;
-            font-size: 13px;
+            font-family: var(--font-sans);
+            font-size: var(--text-caption);
             font-weight: 500;
             color: #71717A;
         }
@@ -193,19 +195,19 @@
 
     p {
         margin: 0;
-        font-size: 16px;
-        font-weight: 300;
-        line-height: 1.6;
+        font-size: var(--text-body);
+        font-weight: 400;
+        line-height: var(--leading-relaxed);
         color: #1C1B20;
     }
 }
 
 .caseLabel {
-    font-family: ui-monospace, "SF Mono", "Courier New", monospace;
-    font-size: 11px;
-    font-weight: 600;
+    font-family: var(--font-sans);
+    font-size: var(--text-caption);
+    font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: var(--tracking-wider);
     color: #464B50;
 }
 
@@ -214,8 +216,8 @@
 }
 
 .pipeline {
-    font-family: ui-monospace, "SF Mono", "Courier New", monospace;
-    font-size: 14px;
+    font-family: var(--font-sans);
+    font-size: var(--text-body-sm);
     letter-spacing: 0.01em;
     color: #464B50;
     font-weight: 500;
@@ -237,11 +239,11 @@
     background-color: #464B50;
     color: #F8FAFC;
     text-decoration: none;
-    font-family: ui-monospace, "SF Mono", "Courier New", monospace;
-    font-size: 12px;
-    font-weight: 600;
+    font-family: var(--font-sans);
+    font-size: var(--text-caption);
+    font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: var(--tracking-wider);
     transition: background-color 0.2s ease;
 
     &:hover {
@@ -256,6 +258,6 @@
     }
 
     .caseBlock p {
-        font-size: 14px;
+        font-size: var(--text-body-sm);
     }
 }
