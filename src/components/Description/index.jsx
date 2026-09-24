@@ -26,6 +26,15 @@ export default function index() {
                     <motion.p variants={opacity} animate={isInView ? "open" : "closed"}>
                         {t.about.body}
                     </motion.p>
+                    <motion.ul variants={opacity} animate={isInView ? "open" : "closed"} className={styles.metrics}>
+                        {t.about.metrics.map((metric, i) => (
+                            <li key={metric.label} className={styles.metric}>
+                                <span className={styles.metricIndex} aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                                <span className={styles.metricLabel}>{metric.label}</span>
+                                <span className={styles.metricDetail}>{metric.detail}</span>
+                            </li>
+                        ))}
+                    </motion.ul>
                     <div className={styles.buttonWrapper}>
                         <Rounded className={styles.button}>
                             <a href={t.about.cvFile} target="_blank" rel="noopener noreferrer" className='link' download>

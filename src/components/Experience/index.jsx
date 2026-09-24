@@ -7,27 +7,12 @@ import { useLanguage } from '../../context/LanguageContext';
 
 const experienceOrder = ["icesi", "ieee"];
 
-const skillCategories = [
-  {
-    category: "Agentic Workflows & Orchestration",
-    color: "#A3D900", // Lime Green (from left sculpture frame)
-    items: ["LLM Integration", "RAG Pipelines", "Prompt Engineering", "Multi-Agent Coordination"]
-  },
-  {
-    category: "System Design & Architecture",
-    color: "#00D8F6", // Electric Cyan (from inner sculpture stripes and sky)
-    items: ["UML & Architecture", "Design Patterns", "Spring Boot · Django · Next.js", "Docker & Cloud CI"]
-  },
-  {
-    category: "Security & Guardrails",
-    color: "#FF007A", // Vibrant Magenta / Pink (from right sculpture frame)
-    items: ["Applied Cybersecurity", "Access Control & Auth", "API Threat Surface", "Threat Modeling"]
-  },
-  {
-    category: "AI Auditing & Evaluation",
-    color: "#A855F7", // Electric Violet (from World neon speech bubble)
-    items: ["Model Evaluation Pipelines", "Hallucination Mitigation", "Observability (OpenTelemetry)", "Engineering Governance"]
-  }
+// Signature accents per category; copy lives in the locale file, indexed in the same order.
+const categoryColors = [
+  "#A3D900", // Neon Lime - Agentic Workflows
+  "#00D8F6", // Electric Cyan - System Design
+  "#FF007A", // Vibrant Pink - Security & Guardrails
+  "#A855F7", // Electric Violet - AI Auditing
 ];
 
 const coreStack = ["Java", "Python", "SQL", "TypeScript", "PostgreSQL", "MongoDB", "MySQL", "RESTful APIs"];
@@ -38,6 +23,7 @@ export default function Experience() {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.15 });
   const { t } = useLanguage();
+  const skillCategories = t.capabilities.categories.map((cat, i) => ({ ...cat, color: categoryColors[i] }));
   const experiences = experienceOrder.map((id) => ({ id, ...t.capabilities.experiences[id] }));
 
   const toggleCol = (idx) => {
@@ -77,7 +63,15 @@ export default function Experience() {
                 key={exp.id}
                 onClick={() => setActiveExp(index)}
                 className={`${styles.tabButton} ${activeExp === index ? styles.activeTab : ''}`}
+                aria-pressed={activeExp === index}
               >
+                {activeExp === index && (
+                  <motion.span
+                    layoutId="experienceTabHighlight"
+                    className={styles.tabHighlight}
+                    transition={{ type: "spring", stiffness: 380, damping: 34 }}
+                  />
+                )}
                 <span className={styles.tabOrg}>{exp.organization}</span>
                 <span className={styles.tabRole}>{exp.role}</span>
                 <span className={styles.tabPeriod}>{exp.period}</span>
@@ -155,6 +149,23 @@ export default function Experience() {
                       </li>
                     ))}
                   </ul>
+                  <div className={styles.pipelineTeaser} aria-label={t.capabilities.pipelineLabel}>
+                    <span className={styles.pipelineLabel}>{t.capabilities.pipelineLabel}</span>
+                    <ol className={styles.pipelineNodes}>
+                      {cat.pipeline.map((node, nodeIdx) => (
+                        <li
+                          key={node}
+                          className={styles.pipelineNode}
+                          style={{ '--node-delay': `${nodeIdx * 60}ms` }}
+                        >
+                          <span className={styles.nodePill}>{node}</span>
+                          {nodeIdx < cat.pipeline.length - 1 && (
+                            <span className={styles.nodeLink} aria-hidden="true" />
+                          )}
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
                 </motion.div>
               );
             })}

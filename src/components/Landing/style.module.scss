@@ -71,20 +71,20 @@
         gap: 6px;
         width: 100%;
         max-width: 420px;
-        background: rgba(18, 18, 22, 0.85);
-        backdrop-filter: blur(20px) saturate(190%);
-        -webkit-backdrop-filter: blur(20px) saturate(190%);
-        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(28, 27, 32, 0.75);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
         border-radius: 14px;
         padding: 12px 18px;
-        box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.55), 
-                    inset 0 1px 0 rgba(255, 255, 255, 0.16);
-        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5),
+                    0 0 20px rgba(163, 217, 0, 0.15);
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
 
         &:hover {
-          border-color: rgba(255, 255, 255, 0.24);
-          box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.65), 
-                      inset 0 1px 0 rgba(255, 255, 255, 0.25);
+          border-color: rgba(163, 217, 0, 0.35);
+          box-shadow: 0 24px 44px -15px rgba(0, 0, 0, 0.6),
+                      0 0 28px rgba(163, 217, 0, 0.25);
         }
 
         .badgeHeader {
@@ -111,14 +111,16 @@
             border: 1px solid rgba(163, 217, 0, 0.35);
             border-radius: 999px;
             padding: 2.5px 8px;
-            flex-shrink: 0;
+            flex-shrink: 1;
+            min-width: 0;
 
             .dot {
               width: 5px;
               height: 5px;
               border-radius: 50%;
+              flex-shrink: 0;
               background-color: #A3D900;
-              box-shadow: 0 0 0 2px rgba(163, 217, 0, 0.25);
+              box-shadow: 0 0 8px rgba(163, 217, 0, 0.9), 0 0 0 2px rgba(163, 217, 0, 0.25);
               animation: pulseBeacon 2.2s ease-in-out infinite;
             }
 
@@ -128,6 +130,41 @@
               font-weight: 500;
               text-transform: uppercase;
               letter-spacing: var(--tracking-wider);
+              color: #A3D900;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+          }
+        }
+
+        .badgeHeader .name { flex-shrink: 0; }
+
+        .clockRow {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+          margin-top: 4px;
+          padding-top: 8px;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          font-family: var(--font-sans);
+          font-size: var(--text-caption);
+          letter-spacing: var(--tracking-wider);
+          text-transform: uppercase;
+
+          .clockLocation {
+            color: rgba(248, 250, 252, 0.6);
+            font-weight: 500;
+          }
+
+          .clockTime {
+            color: #FFFFFF;
+            font-weight: 500;
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+
+            .clockZone {
               color: #A3D900;
             }
           }

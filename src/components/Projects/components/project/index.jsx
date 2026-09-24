@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function index({ index, title, tag, problem, architecture, impact, link, src, color, caseLabels, ctaLabel, isOpen, onToggle, manageModal }) {
+export default function index({ index, title, tag, problem, architecture, stack, stackLabel, impact, link, src, color, caseLabels, ctaLabel, isOpen, onToggle, manageModal }) {
 
     return (
         <div className={styles.projectContainer}>
@@ -53,7 +53,25 @@ export default function index({ index, title, tag, problem, architecture, impact
                                 </div>
                                 <div className={styles.caseBlock}>
                                     <span className={styles.caseLabel}>{caseLabels.architecture}</span>
-                                    <p className={styles.pipeline}>{architecture?.join(" → ")}</p>
+                                    <ol className={styles.pipeline}>
+                                        {architecture?.map((node, i) => (
+                                            <li key={node} className={styles.pipelineStep}>
+                                                <span className={styles.pipelineNode}>
+                                                    <span className={styles.pipelineIndex} aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                                                    {node}
+                                                </span>
+                                                {i < architecture.length - 1 && <span className={styles.pipelineArrow} aria-hidden="true">→</span>}
+                                            </li>
+                                        ))}
+                                    </ol>
+                                </div>
+                                <div className={styles.caseBlock}>
+                                    <span className={styles.caseLabel}>{stackLabel}</span>
+                                    <ul className={styles.stack}>
+                                        {stack?.map((tech) => (
+                                            <li key={tech} className={styles.stackBadge}>{tech}</li>
+                                        ))}
+                                    </ul>
                                 </div>
                                 <div className={styles.caseBlock}>
                                     <span className={`${styles.caseLabel} ${styles.caseLabelRisk}`}>{caseLabels.impact}</span>

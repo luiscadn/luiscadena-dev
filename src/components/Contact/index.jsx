@@ -1,15 +1,35 @@
 import styles from "./style.module.scss";
 import Image from "next/image";
 import Rounded from "../../common/RoundedButton";
-import { useRef } from "react";
-import { useScroll, motion, useTransform, useSpring } from "framer-motion";
+import { useRef, useState, useEffect, useCallback } from "react";
+import { useScroll, motion, useTransform, useSpring, AnimatePresence } from "framer-motion";
 import Magnetic from "../../common/Magnetic";
 import "./index.css";
 import Link from "next/link";
 import { useLanguage } from "../../context/LanguageContext";
 
+const EMAIL = "lfcadenac@outlook.com";
+
 export default function index() {
   const { t } = useLanguage();
+  const [copyState, setCopyState] = useState("idle"); // idle | copied | failed
+  const resetTimer = useRef(null);
+
+  useEffect(() => () => clearTimeout(resetTimer.current), []);
+
+  const copyEmail = useCallback(async () => {
+    let ok = false;
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      ok = true;
+    } catch {
+      ok = false;
+    }
+    setCopyState(ok ? "copied" : "failed");
+    clearTimeout(resetTimer.current);
+    resetTimer.current = setTimeout(() => setCopyState("idle"), 2200);
+  }, []);
+
   const container = useRef(null);
   const { scrollYProgress } = useScroll({
     target: container,
@@ -71,17 +91,43 @@ export default function index() {
           </motion.svg>
         </div>
         <div className={styles.nav}>
-          <Rounded backgroundColor="#F8FAFC" textColor="#464B50">
-            <a href="mailto:lfcadenac@outlook.com" className="links">
-              <p>lfcadenac@outlook.com</p>
-            </a>
-          </Rounded>
+          <div className={styles.emailWrapper}>
+            <Rounded backgroundColor="#F8FAFC" textColor="#464B50">
+              <button
+                type="button"
+                onClick={copyEmail}
+                className={`links ${styles.copyButton}`}
+                aria-label={`${t.footer.copyEmail}: ${EMAIL}`}
+                title={t.footer.copyEmail}
+              >
+                <p>{EMAIL}</p>
+              </button>
+            </Rounded>
+            <AnimatePresence>
+              {copyState !== "idle" && (
+                <motion.span
+                  role="status"
+                  className={`${styles.toast} ${copyState === "failed" ? styles.toastFailed : ""}`}
+                  initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 4, scale: 0.98 }}
+                  transition={{ duration: 0.2, ease: [0.76, 0, 0.24, 1] }}
+                >
+                  {copyState === "copied" ? t.footer.copied : t.footer.copyFailed}
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </div>
           <Rounded backgroundColor="#F8FAFC" textColor="#464B50">
             <Link href="https://github.com/luiscadn" target="_blank" rel="noopener noreferrer" className="links">
               <p>GitHub @luiscadn</p>
             </Link>
           </Rounded>
         </div>
+        <p className={styles.availability}>
+          <span className={styles.availabilityDot} aria-hidden="true" />
+          {t.footer.availability}
+        </p>
         <div id="contact" className={styles.info}>
           <div>
             <span>

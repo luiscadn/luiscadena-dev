@@ -17,7 +17,8 @@ import './index.css'
  * @property {ProjectCategory} category
  * @property {string} tag - short technical line, e.g. "Systems Architecture · Real-Time Physics"
  * @property {string} problem - the strategic decision or system problem behind the build
- * @property {string[]} architecture - pipeline stages, rendered as an arrow chain
+ * @property {string[]} architecture - pipeline stages, rendered as interactive pills
+ * @property {string[]} stack - tech stack badges
  * @property {string} impact - impact and governance notes
  * @property {string} src - filename in /public/images
  * @property {string} color - modal background hex
@@ -31,6 +32,7 @@ const projects = [
     title: "Salpicon Game",
     category: "gamedev",
     architecture: ["Input Layer", "Physics Engine", "Scene Graph", "Render Pipeline"],
+    stack: ["Next.js", "React", "Three.js", "Matter.js", "Vercel"],
     src: "salpicon.png",
     color: "#1C1B20",
     link: "https://salpicon-game.vercel.app/"
@@ -40,6 +42,7 @@ const projects = [
     title: "Android Malware Detection",
     category: "security",
     architecture: ["Permission Signals", "Detection Model", "OpenTelemetry Observability", "Risk Scoring"],
+    stack: ["Next.js", "Python", "PyTorch", "Docker", "OpenTelemetry"],
     src: "security.png",
     color: "#1C1B20",
     link: "https://android-permission-sentinel.vercel.app/"
@@ -49,6 +52,7 @@ const projects = [
     title: "Applied AI Sugar Cane Harvest Forecasting",
     category: "ai",
     architecture: ["Field Data Input", "TFLite Edge Inference", "LLM Quality-Control Layer", "Harvest Forecast"],
+    stack: ["Python", "TensorFlow Lite", "PyTorch", "LLM APIs", "Docker"],
     src: "ai-qc.png",
     color: "#1C1B20",
     link: "https://github.com/luiscadn/ProvidenciaCane-Harvest-Forecasting-ML.git"
@@ -146,6 +150,8 @@ export default function Home() {
               tag={copy.tag}
               problem={copy.problem}
               architecture={project.architecture}
+              stack={project.stack}
+              stackLabel={t.projects.stackLabel}
               impact={copy.impact}
               link={project.link}
               src={project.src}

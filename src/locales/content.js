@@ -9,7 +9,10 @@ export const content = {
     hero: {
       marquee: "Agentic AI • Architecture • Security •",
       role: "AI Systems Architect · Security & Orchestration",
-      statusBadge: "Open to work",
+      statusBadge: "Available for global impact",
+      clockLocation: "CALI, CO · UTC-5",
+      clockZone: "COT",
+      clockLabel: "Local time in Cali, Colombia",
       location: "Cali, Colombia",
       education: "Systems Engineering",
       status: "Cali, CO · Systems Engineering · Open to work",
@@ -21,6 +24,11 @@ export const content = {
       cvLabelDesktopLine2: "Resume CV",
       cvLabelMobile: "Resume",
       cvFile: "/CV_Luis_Felipe_Cadena_Cortes_EN.pdf",
+      metrics: [
+        { label: "Production Agents", detail: "Deterministic orchestration & governance" },
+        { label: "Edge to Cloud", detail: "Sub-50ms inference & TFLite deployment" },
+        { label: "Zero-Compromise", detail: "Adversarial threat modeling & guardrails" },
+      ],
     },
     capabilities: {
       eyebrow: "Engineering & Expertise",
@@ -28,6 +36,29 @@ export const content = {
       subtitle: "Blending engineering rigor with proactive leadership and clear strategic communication.",
       matrixTitle: "AI System Capabilities & Architecture",
       coreStackLabel: "Implementation layer",
+      pipelineLabel: "Reference pipeline",
+      categories: [
+        {
+          category: "Agentic Workflows & Orchestration",
+          items: ["LLM Integration", "RAG Pipelines", "Prompt Engineering", "Multi-Agent Coordination"],
+          pipeline: ["Intent", "Planner Agent", "Tool Calls", "Verifier", "Response"],
+        },
+        {
+          category: "System Design & Architecture",
+          items: ["UML & Architecture", "Design Patterns", "Spring Boot · Django · Next.js", "Docker & Cloud CI"],
+          pipeline: ["Requirements", "Domain Model", "Service Boundaries", "CI/CD", "Deploy"],
+        },
+        {
+          category: "Security & Guardrails",
+          items: ["Applied Cybersecurity", "Access Control & Auth", "API Threat Surface", "Threat Modeling"],
+          pipeline: ["Threat Model", "Auth Gate", "Input Guardrail", "Model", "Output Filter"],
+        },
+        {
+          category: "AI Auditing & Evaluation",
+          items: ["Model Evaluation Pipelines", "Hallucination Mitigation", "Observability (OpenTelemetry)", "Engineering Governance"],
+          pipeline: ["Eval Suite", "Traces", "Drift Detection", "Audit Report", "Governance"],
+        },
+      ],
       experiences: {
         icesi: {
           role: "Marketing & Identity Delegate",
@@ -54,6 +85,7 @@ export const content = {
       moreOnGithub: "More on GitHub",
       viewProject: "View project →",
       hoverView: "View",
+      stackLabel: "Tech stack",
       exploreSystem: "Explore System ↗",
       sourceCode: "Source Code →",
       caseLabels: {
@@ -86,6 +118,10 @@ export const content = {
       locationValue: "Cali, Colombia • Systems Engineering",
       connectTitle: "Connect",
       connectLabel: "Let's Connect",
+      copyEmail: "Copy email to clipboard",
+      copied: "✓ Copied to clipboard!",
+      copyFailed: "Press Ctrl/⌘+C to copy",
+      availability: "Worldwide Remote & Hybrid · Open to Staff / Senior / Architect opportunities",
     },
   },
   es: {
@@ -98,7 +134,10 @@ export const content = {
     hero: {
       marquee: "IA Agéntica • Arquitectura • Seguridad •",
       role: "Arquitecto de Sistemas IA · Seguridad & Orquestación",
-      statusBadge: "Disponible",
+      statusBadge: "Disponible para impacto global",
+      clockLocation: "CALI, CO · UTC-5",
+      clockZone: "COT",
+      clockLabel: "Hora local en Cali, Colombia",
       location: "Cali, Colombia",
       education: "Ingeniería de Sistemas",
       status: "Cali, CO · Ingeniería de Sistemas · Disponible",
@@ -110,6 +149,11 @@ export const content = {
       cvLabelDesktopLine2: "Hoja de Vida",
       cvLabelMobile: "Currículum",
       cvFile: "/CV_Luis_Felipe_Cadena_Cortes_ES.pdf",
+      metrics: [
+        { label: "Agentes en Producción", detail: "Orquestación determinista y gobernanza" },
+        { label: "Del Borde a la Nube", detail: "Inferencia sub-50ms y despliegue con TFLite" },
+        { label: "Cero Concesiones", detail: "Modelado de amenazas adversariales y guardrails" },
+      ],
     },
     capabilities: {
       eyebrow: "Ingeniería y Especialización",
@@ -117,6 +161,29 @@ export const content = {
       subtitle: "Rigor de ingeniería combinado con liderazgo proactivo y comunicación estratégica clara.",
       matrixTitle: "Capacidades y Arquitectura de Sistemas de IA",
       coreStackLabel: "Capa de implementación",
+      pipelineLabel: "Pipeline de referencia",
+      categories: [
+        {
+          category: "Flujos Agénticos y Orquestación",
+          items: ["Integración de LLMs", "Pipelines RAG", "Ingeniería de Prompts", "Coordinación Multi-Agente"],
+          pipeline: ["Intención", "Agente Planificador", "Llamadas a Herramientas", "Verificador", "Respuesta"],
+        },
+        {
+          category: "Diseño y Arquitectura de Sistemas",
+          items: ["UML y Arquitectura", "Patrones de Diseño", "Spring Boot · Django · Next.js", "Docker y CI en la Nube"],
+          pipeline: ["Requisitos", "Modelo de Dominio", "Límites de Servicio", "CI/CD", "Despliegue"],
+        },
+        {
+          category: "Seguridad y Guardrails",
+          items: ["Ciberseguridad Aplicada", "Control de Acceso y Auth", "Superficie de Amenaza de APIs", "Modelado de Amenazas"],
+          pipeline: ["Modelo de Amenazas", "Puerta de Auth", "Guardrail de Entrada", "Modelo", "Filtro de Salida"],
+        },
+        {
+          category: "Auditoría y Evaluación de IA",
+          items: ["Pipelines de Evaluación de Modelos", "Mitigación de Alucinaciones", "Observabilidad (OpenTelemetry)", "Gobernanza de Ingeniería"],
+          pipeline: ["Suite de Evaluación", "Trazas", "Detección de Deriva", "Informe de Auditoría", "Gobernanza"],
+        },
+      ],
       experiences: {
         icesi: {
           role: "Delegado de Comunicación e Identidad",
@@ -143,6 +210,7 @@ export const content = {
       moreOnGithub: "Más en GitHub",
       viewProject: "Ver proyecto →",
       hoverView: "Ver",
+      stackLabel: "Stack tecnológico",
       exploreSystem: "Explorar Sistema ↗",
       sourceCode: "Ver Código Fuente →",
       caseLabels: {
@@ -175,6 +243,10 @@ export const content = {
       locationValue: "Cali, Colombia • Ingeniería de Sistemas",
       connectTitle: "Conecta",
       connectLabel: "Conectemos",
+      copyEmail: "Copiar correo al portapapeles",
+      copied: "✓ ¡Copiado al portapapeles!",
+      copyFailed: "Presiona Ctrl/⌘+C para copiar",
+      availability: "Remoto y Híbrido a nivel mundial · Abierto a oportunidades Staff / Senior / Arquitecto",
     },
   },
 };
