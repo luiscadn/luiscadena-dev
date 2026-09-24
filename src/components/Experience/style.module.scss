@@ -472,7 +472,7 @@
   }
 
   @media (max-width: 768px) {
-    padding: 60px 24px 48px 24px;
+    padding: 60px 20px 48px 20px;
 
     .header {
       padding-bottom: 24px;
@@ -480,6 +480,22 @@
       .titleWrapper .title {
         font-size: var(--text-h2);
       }
+    }
+
+    .detailCard {
+      padding: 24px 18px;
+
+      .cardRole {
+        font-size: 1.25rem;
+      }
+
+      .cardDescription {
+        font-size: var(--text-body);
+      }
+    }
+
+    .tabButton {
+      padding: 16px;
     }
   }
 }

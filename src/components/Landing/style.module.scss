@@ -22,8 +22,9 @@
 
       @media (max-width: 768px) {
         top: auto;
-        bottom: 92px;
-        z-index: 1;
+        bottom: calc(155px + env(safe-area-inset-bottom, 0px));
+        z-index: 2;
+        pointer-events: none;
       }
     }
     
@@ -49,8 +50,9 @@
       padding-right: 48px;
 
       @media (max-width: 768px) {
-        font-size: var(--text-h1);
-        color: rgba(255, 255, 255, 0.28);
+        font-size: clamp(1.75rem, 6vw, 2.25rem);
+        line-height: 1.15;
+        color: rgba(255, 255, 255, 0.45);
         padding-right: 20px;
       }
     }
@@ -183,25 +185,33 @@
       @media (max-width: 768px) {
         top: auto;
         bottom: calc(14px + env(safe-area-inset-bottom, 0px));
-        left: 12px;
-        right: 12px;
+        left: 14px;
+        right: 14px;
         width: auto;
         z-index: 10;
+        box-sizing: border-box;
 
         .badge {
+          box-sizing: border-box;
           width: 100%;
           max-width: 100%;
-          padding: 10px 14px;
-          gap: 4px;
-          border-radius: 12px;
+          background: rgba(18, 17, 22, 0.94);
+          backdrop-filter: blur(24px);
+          -webkit-backdrop-filter: blur(24px);
+          padding: 12px 14px;
+          gap: 6px;
+          border-radius: 14px;
 
           .badgeHeader {
+            flex-wrap: wrap;
+            gap: 8px;
+
             .name {
               font-size: var(--text-body);
             }
 
             .statusBadge {
-              padding: 2px 7px;
+              padding: 2px 8px;
               .statusText {
                 font-size: var(--text-caption);
               }
@@ -211,6 +221,12 @@
           .role {
             font-size: var(--text-caption);
             line-height: var(--leading-snug);
+            word-break: break-word;
+          }
+
+          .clockRow {
+            flex-wrap: wrap;
+            gap: 6px;
           }
         }
       }

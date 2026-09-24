@@ -9,7 +9,7 @@ export const content = {
     hero: {
       marquee: "Agentic AI • Architecture • Security •",
       role: "AI Systems Architect · Security & Orchestration",
-      statusBadge: "Available for global impact",
+      statusBadge: "Open to work",
       clockLocation: "CALI, CO · UTC-5",
       clockZone: "COT",
       clockLabel: "Local time in Cali, Colombia",
@@ -70,7 +70,7 @@ export const content = {
         },
         ieee: {
           role: "Marketing & Identity Lead",
-          organization: "IEEE Student Branch (ICESI)",
+          organization: "IEEE Student Branch at ICESI University",
           period: "2026 → Present",
           tag: "TECHNICAL COMMUNITY",
           description: "Communication strategist projecting technical excellence through modern visual identity and digital content. Leading cross-functional teams to execute high-impact engineering conferences and student mentoring initiatives.",
@@ -134,7 +134,7 @@ export const content = {
     hero: {
       marquee: "IA Agéntica • Arquitectura • Seguridad •",
       role: "Arquitecto de Sistemas IA · Seguridad & Orquestación",
-      statusBadge: "Disponible para impacto global",
+      statusBadge: "Disponible",
       clockLocation: "CALI, CO · UTC-5",
       clockZone: "COT",
       clockLabel: "Hora local en Cali, Colombia",
@@ -195,7 +195,7 @@ export const content = {
         },
         ieee: {
           role: "Líder de Identidad y Comunicación Técnica",
-          organization: "Rama Estudiantil IEEE (ICESI)",
+          organization: "Rama Estudiantil IEEE en ICESI",
           period: "2026 → Presente",
           tag: "COMUNIDAD TÉCNICA",
           description: "Estratega de comunicación que proyecta excelencia técnica a través de identidad visual moderna y contenido digital. Lidera equipos multidisciplinarios para ejecutar conferencias de ingeniería de alto impacto e iniciativas de mentoría estudiantil.",
@@ -246,7 +246,7 @@ export const content = {
       copyEmail: "Copiar correo al portapapeles",
       copied: "✓ ¡Copiado al portapapeles!",
       copyFailed: "Presiona Ctrl/⌘+C para copiar",
-      availability: "Remoto y Híbrido a nivel mundial · Abierto a oportunidades Staff / Senior / Arquitecto",
+      availability: "Remoto y Híbrido a nivel mundial · Abierto a oportunidades",
     },
   },
 };
