@@ -94,6 +94,16 @@ export const content = {
         impact: "Impact & governance",
       },
       items: {
+        cadenalaw: {
+          tag: "Legal Tech Platform · Cross-Border Architecture",
+          problem: "High-stakes international criminal litigation and extradition defense demand instantaneous global accessibility, strict confidentiality, and an authoritative bilingual digital presence without latency.",
+          impact: "Architected an edge-rendered legal portal with zero-compromise security posture, sub-second international routing, and structured consultation intake handling cross-border inquiries.",
+        },
+        tincadena: {
+          tag: "Fine Art Platform · Virtual Exhibition Engine",
+          problem: "Museum-grade photography platforms struggle to deliver large, color-accurate assets without degrading time-to-interactive or forcing heavy payloads on mobile networks.",
+          impact: "Engineered a lightweight visual vault with interactive room-scale perspective previews, responsive progressive image hydration, and frictionless edition acquisition workflows.",
+        },
         salpicon: {
           tag: "Systems Architecture · Real-Time Physics",
           problem: "Real-time physics simulations usually trade determinism for smoothness. The core decision was architecting a physics and rendering pipeline that stays modular and predictable at 60fps without sacrificing responsiveness.",
@@ -121,7 +131,7 @@ export const content = {
       copyEmail: "Copy email to clipboard",
       copied: "✓ Copied to clipboard!",
       copyFailed: "Press Ctrl/⌘+C to copy",
-      availability: "Worldwide Remote & Hybrid · Open to Staff / Senior / Architect opportunities",
+      availability: "Worldwide Remote & Hybrid · Open to all opportunities",
     },
   },
   es: {
@@ -219,6 +229,16 @@ export const content = {
         impact: "Impacto y gobernanza",
       },
       items: {
+        cadenalaw: {
+          tag: "Plataforma Legal Tech · Arquitectura Transfronteriza",
+          problem: "El litigio penal internacional y la defensa en extradición requieren accesibilidad global inmediata, estricta confidencialidad y una presencia digital bilingüe con máxima autoridad visual y sin latencia.",
+          impact: "Se diseñó un portal jurídico desplegado en el borde con postura de seguridad de grado corporativo, ruteo internacional en menos de un segundo y canal estructurado para consultas transfronterizas.",
+        },
+        tincadena: {
+          tag: "Plataforma de Arte · Simulador de Exhibición Virtual",
+          problem: "Las plataformas de fotografía artística de nivel museístico suelen tener dificultades para entregar piezas de alta fidelidad cromática sin castigar los tiempos de carga en redes móviles.",
+          impact: "Se construyó una bóveda visual de alto rendimiento con simulador de sala a escala real, hidratación progresiva de imágenes sin parpadeo y flujo fluido de adquisición para series limitadas.",
+        },
         salpicon: {
           tag: "Arquitectura de Sistemas · Física en Tiempo Real",
           problem: "Las simulaciones de física en tiempo real suelen sacrificar determinismo por fluidez. La decisión central fue diseñar un pipeline de física y renderizado que se mantuviera modular y predecible a 60fps sin sacrificar respuesta.",

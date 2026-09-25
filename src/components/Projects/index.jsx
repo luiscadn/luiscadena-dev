@@ -28,6 +28,26 @@ import './index.css'
 /** @type {Project[]} */
 const projects = [
   {
+    id: "cadenalaw",
+    title: "Cadena Law Office",
+    category: "architecture",
+    architecture: ["Bilingual Routing", "Next.js App Router", "Consultation Pipeline", "Edge Global CDN"],
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel"],
+    src: "cadenalaw.png",
+    color: "#141312",
+    link: "https://cadenalawoffice.vercel.app/en"
+  },
+  {
+    id: "tincadena",
+    title: "Tin Cadena Fine Art",
+    category: "architecture",
+    architecture: ["High-DPI Asset Engine", "Virtual Room Simulator", "Gallery State Store", "Vault Acquisition"],
+    stack: ["React", "Vite", "JavaScript", "Responsive Design", "Vercel"],
+    src: "tincadena.png",
+    color: "#18191C",
+    link: "https://tincadena.abstergo.page/"
+  },
+  {
     id: "salpicon",
     title: "Salpicon Game",
     category: "gamedev",
