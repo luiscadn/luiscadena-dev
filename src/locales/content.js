@@ -89,7 +89,7 @@ export const content = {
           id: "auditing",
           category: "AI Auditing & Observability",
           accent: "#A855F7",
-          items: ["Model Evaluation Pipelines", "Hallucination Mitigation", "Observability (OpenTelemetry)", "Engineering Governance"],
+          items: ["Model Evaluation Pipelines", "Hallucination Mitigation", "Observability", "Engineering Governance"],
           pipeline: ["Eval Suite", "Traces", "Drift Detection", "Audit Report", "Governance"],
         },
         {
@@ -126,7 +126,7 @@ export const content = {
         },
         {
           category: "AI Auditing & Evaluation",
-          items: ["Model Evaluation Pipelines", "Hallucination Mitigation", "Observability (OpenTelemetry)", "Engineering Governance"],
+          items: ["Model Evaluation Pipelines", "Hallucination Mitigation", "Observability", "Engineering Governance"],
           pipeline: ["Eval Suite", "Traces", "Drift Detection", "Audit Report", "Governance"],
         },
       ],
@@ -326,7 +326,7 @@ export const content = {
           id: "auditing",
           category: "Auditoría de IA & Observabilidad",
           accent: "#A855F7",
-          items: ["Pipelines de Evaluación", "Mitigación de Alucinaciones", "Observabilidad (OpenTelemetry)", "Gobernanza de Ingeniería"],
+          items: ["Pipelines de Evaluación", "Mitigación de Alucinaciones", "Observabilidad", "Gobernanza de Ingeniería"],
           pipeline: ["Suite Evaluación", "Trazas", "Detección Deriva", "Reporte Auditoría", "Gobernanza"],
         },
         {
@@ -363,7 +363,7 @@ export const content = {
         },
         {
           category: "Auditoría y Evaluación de IA",
-          items: ["Pipelines de Evaluación de Modelos", "Mitigación de Alucinaciones", "Observabilidad (OpenTelemetry)", "Gobernanza de Ingeniería"],
+          items: ["Pipelines de Evaluación de Modelos", "Mitigación de Alucinaciones", "Observabilidad", "Gobernanza de Ingeniería"],
           pipeline: ["Suite de Evaluación", "Trazas", "Detección de Deriva", "Informe de Auditoría", "Gobernanza"],
         },
       ],

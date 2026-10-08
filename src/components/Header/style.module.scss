@@ -38,13 +38,17 @@
                 transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
                 &:nth-of-type(2){
                     padding-left: 0.3em;
-                    font-weight: 500;
+                    font-family: var(--font-pixel);
+                    font-weight: 600;
+                    letter-spacing: 0.02em;
                 }
                 &:nth-of-type(3){
                     position: absolute;
-                    left: 116px;
+                    left: 108px;
                     padding-left: 0.3em;
-                    font-weight: 500;
+                    font-family: var(--font-pixel);
+                    font-weight: 600;
+                    letter-spacing: 0.02em;
                 }
             }
         }
@@ -53,15 +57,16 @@
                 transform: rotate(360deg);
             }
             .name{
-                padding-right: 36px;
+                padding-right: 32px;
                 .codeBy{
                     transform: translateX(-100%);
+                    opacity: 0;
                 }
                 .luis{
-                    transform: translateX(-66px);
+                    transform: translateX(-64px);
                 }
                 .cadena{
-                    transform: translateX(-66px);
+                    transform: translateX(-64px);
                 }
             }
         }
