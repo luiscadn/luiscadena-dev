@@ -1,9 +1,37 @@
 import './globals.css'
-import { Inter } from 'next/font/google'
+import { Silkscreen, Plus_Jakarta_Sans, Space_Mono, JetBrains_Mono } from 'next/font/google'
 import Header from '../components/Header';
 import { LanguageProvider } from '../context/LanguageContext';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+const silkscreen = Silkscreen({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-silkscreen',
+  display: 'swap',
+});
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
+  style: ['normal', 'italic'],
+  variable: '--font-plus-jakarta',
+  display: 'swap',
+});
+
+const spaceMono = Space_Mono({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  style: ['normal', 'italic'],
+  variable: '--font-space-mono',
+  display: 'swap',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-jetbrains-mono',
+  display: 'swap',
+});
 
 const title = 'Luis Felipe Cadena - AI Engineer & Systems Architect';
 const description = 'Luis Felipe Cadena Cortés - AI Engineer building intelligent systems, secure architectures, and applied software. Systems Engineering @ ICESI, based in Cali, Colombia.';
@@ -14,6 +42,13 @@ export const metadata = {
   description,
   keywords: 'Luis Felipe Cadena, AI Engineer, AI Engineering, LLM, RAG, Cybersecurity, Software Architecture, Ingeniero de Software, ICESI, IEEE, Spring Boot, Django, Next.js, Colombia, Cali',
   authors: [{ name: 'Luis Felipe Cadena Cortés' }],
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: 'any' },
+    ],
+    apple: '/apple-touch-icon.png',
+  },
   openGraph: {
     title,
     description,
@@ -30,8 +65,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.variable}>
+    <html lang="en" className={`${plusJakartaSans.variable} ${silkscreen.variable} ${spaceMono.variable} ${jetbrainsMono.variable}`}>
+      <body className={`${plusJakartaSans.variable} ${silkscreen.variable} ${spaceMono.variable} ${jetbrainsMono.variable}`}>
         <LanguageProvider>
           <Header />
           {children}
@@ -40,3 +75,4 @@ export default function RootLayout({ children }) {
     </html>
   )
 }
+

@@ -68,6 +68,42 @@ export default function index() {
           <Magnetic>
             <div className={styles.el}>
               <a
+                href="#about"
+                onClick={(e) => {
+                  e.preventDefault();
+                  gsap.to(window, {
+                    duration: 1,
+                    scrollTo: "#about",
+                    ease: "power2.out",
+                  });
+                }}
+              >
+                {t.nav.about}
+              </a>
+              <div className={styles.indicator}></div>
+            </div>
+          </Magnetic>
+          <Magnetic>
+            <div className={styles.el}>
+              <a
+                href="#skills"
+                onClick={(e) => {
+                  e.preventDefault();
+                  gsap.to(window, {
+                    duration: 1,
+                    scrollTo: "#skills",
+                    ease: "power2.out",
+                  });
+                }}
+              >
+                {t.nav.skills}
+              </a>
+              <div className={styles.indicator}></div>
+            </div>
+          </Magnetic>
+          <Magnetic>
+            <div className={styles.el}>
+              <a
                 href="#work"
                 onClick={(e) => {
                   e.preventDefault();
@@ -79,24 +115,6 @@ export default function index() {
                 }}
               >
                 {t.nav.work}
-              </a>
-              <div className={styles.indicator}></div>
-            </div>
-          </Magnetic>
-          <Magnetic>
-            <div className={styles.el}>
-              <a
-                href="#description"
-                onClick={(e) => {
-                  e.preventDefault();
-                  gsap.to(window, {
-                    duration: 1,
-                    scrollTo: "#description",
-                    ease: "power2.out",
-                  });
-                }}
-              >
-                {t.nav.about}
               </a>
               <div className={styles.indicator}></div>
             </div>

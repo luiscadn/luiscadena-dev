@@ -1,185 +1,71 @@
 'use client';
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 import styles from './style.module.scss';
-import { motion, AnimatePresence, useInView } from 'framer-motion';
-import { reveal } from './animation';
+import { motion, useInView } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext';
 
-const experienceOrder = ["icesi", "ieee"];
-
-// Signature accents per category; copy lives in the locale file, indexed in the same order.
-const categoryColors = [
-  "#A3D900", // Neon Lime - Agentic Workflows
-  "#00D8F6", // Electric Cyan - System Design
-  "#FF007A", // Vibrant Pink - Security & Guardrails
-  "#A855F7", // Electric Violet - AI Auditing
-];
-
-const coreStack = ["Java", "Python", "SQL", "TypeScript", "PostgreSQL", "MongoDB", "MySQL", "RESTful APIs"];
-
 export default function Experience() {
-  const [activeExp, setActiveExp] = useState(0);
-  const [expandedCol, setExpandedCol] = useState(null);
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.15 });
+  const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
   const { t } = useLanguage();
-  const skillCategories = t.capabilities.categories.map((cat, i) => ({ ...cat, color: categoryColors[i] }));
-  const experiences = experienceOrder.map((id) => ({ id, ...t.capabilities.experiences[id] }));
 
-  const toggleCol = (idx) => {
-    setExpandedCol((prev) => (prev === idx ? null : idx));
-  };
+  const experiences = t.experience?.items || (
+    t.capabilities?.experiences ? [
+      { id: "icesi", ...t.capabilities.experiences.icesi },
+      { id: "ieee", ...t.capabilities.experiences.ieee },
+    ] : []
+  );
 
   return (
     <section ref={sectionRef} id="experience" className={styles.experienceSection}>
       <div className={styles.container}>
-        <motion.div
-          className={styles.header}
-          variants={reveal}
-          custom={0}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-        >
-          <div className={styles.titleWrapper}>
-            <span className={styles.sectionTag}>{t.capabilities.eyebrow}</span>
-            <h2 className={styles.title}>{t.capabilities.title}</h2>
+        {/* Editorial Section Header */}
+        <div className={styles.sectionHeader}>
+          <div className={styles.headerLeft}>
+            <span className={styles.sectionNumber}>{t.experience?.sectionNum || "04"}</span>
+            <h2 className={styles.sectionTitle}>{t.experience?.sectionTitle || "Experience & Leadership"}</h2>
           </div>
-          <p className={styles.subtitle}>
-            {t.capabilities.subtitle}
-          </p>
-        </motion.div>
+          {t.experience?.subtitle && (
+            <p className={styles.sectionSubtitle}>{t.experience.subtitle}</p>
+          )}
+        </div>
 
-        {/* Experience Interactive Block */}
-        <motion.div
-          className={styles.experienceGrid}
-          variants={reveal}
-          custom={1}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-        >
-          <div className={styles.tabsList}>
-            {experiences.map((exp, index) => (
-              <button
-                key={exp.id}
-                onClick={() => setActiveExp(index)}
-                className={`${styles.tabButton} ${activeExp === index ? styles.activeTab : ''}`}
-                aria-pressed={activeExp === index}
-              >
-                {activeExp === index && (
-                  <motion.span
-                    layoutId="experienceTabHighlight"
-                    className={styles.tabHighlight}
-                    transition={{ type: "spring", stiffness: 380, damping: 34 }}
-                  />
-                )}
-                <span className={styles.tabOrg}>{exp.organization}</span>
-                <span className={styles.tabRole}>{exp.role}</span>
-                <span className={styles.tabPeriod}>{exp.period}</span>
-              </button>
-            ))}
-          </div>
+        {/* Chronological Timeline Flow - Dataconale style, NO WHITE BOXES */}
+        <div className={styles.timelineList}>
+          {experiences.map((exp, idx) => (
+            <motion.div
+              key={exp.id || idx}
+              className={styles.timelineRow}
+              initial={{ opacity: 0, y: 24 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+              transition={{ duration: 0.6, delay: idx * 0.12, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {/* Meta column: period, organization, category kicker */}
+              <div className={styles.metaCol}>
+                <span className={styles.periodBadge}>{exp.period}</span>
+                <span className={styles.tagKicker}>{exp.tag}</span>
+                <h4 className={styles.orgName}>{exp.organization}</h4>
+                {exp.location && <span className={styles.locationText}>{exp.location}</span>}
+              </div>
 
-          <div className={styles.detailCard}>
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={experiences[activeExp].id}
-                initial={{ clipPath: "inset(0 0 0 100%)", opacity: 0 }}
-                animate={{ clipPath: "inset(0 0 0 0%)", opacity: 1 }}
-                exit={{ clipPath: "inset(0 0 0 100%)", opacity: 0 }}
-                transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
-                className={styles.cardContent}
-              >
-                <div className={styles.cardHeader}>
-                  <div>
-                    <span className={styles.cardTag}>{experiences[activeExp].tag}</span>
-                    <h3 className={styles.cardRole}>{experiences[activeExp].role}</h3>
-                    <h4 className={styles.cardOrg}>{experiences[activeExp].organization}</h4>
-                  </div>
-                  <span className={styles.cardPeriodBadge}>{experiences[activeExp].period}</span>
-                </div>
+              {/* Main column: role title, narrative and competencies */}
+              <div className={styles.contentCol}>
+                <h3 className={styles.roleTitle}>{exp.role}</h3>
+                <p className={styles.roleDescription}>{exp.description}</p>
 
-                <p className={styles.cardDescription}>{experiences[activeExp].description}</p>
-
-                <div className={styles.cardSkills}>
-                  {experiences[activeExp].skills.map((skill, i) => (
-                    <span key={i} className={styles.skillPill}>{skill}</span>
-                  ))}
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </motion.div>
-
-        {/* Skills Matrix */}
-        <motion.div
-          className={styles.skillsMatrix}
-          variants={reveal}
-          custom={2}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-        >
-          <h3 className={styles.matrixTitle}>{t.capabilities.matrixTitle}</h3>
-          <div className={styles.matrixGrid}>
-            {skillCategories.map((cat, idx) => {
-              const isExpanded = expandedCol === idx;
-              return (
-                <motion.div
-                  key={cat.category}
-                  className={`${styles.matrixCol} ${isExpanded ? styles.expanded : ''}`}
-                  style={{ '--col-accent': cat.color }}
-                  variants={reveal}
-                  custom={idx * 0.5 + 3}
-                  initial="hidden"
-                  animate={isInView ? "visible" : "hidden"}
-                  onClick={() => toggleCol(idx)}
-                  role="button"
-                  tabIndex={0}
-                  aria-expanded={isExpanded}
-                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') toggleCol(idx); }}
-                >
-                  <h4 className={styles.matrixCategory}>
-                    <span>{cat.category}</span>
-                    <span className={styles.matrixCount}>{cat.items.length}</span>
-                  </h4>
-                  <ul className={styles.skillsList}>
-                    {cat.items.map((item, itemIdx) => (
-                      <li key={itemIdx} className={styles.matrixItem}>
-                        <span className={styles.bullet} aria-hidden="true">&bull;</span>
-                        {item}
-                      </li>
+                {exp.skills && exp.skills.length > 0 && (
+                  <div className={styles.skillsList}>
+                    {exp.skills.map((skill, sIdx) => (
+                      <span key={sIdx} className={styles.skillPill}>
+                        {skill}
+                      </span>
                     ))}
-                  </ul>
-                  <div className={styles.pipelineTeaser} aria-label={t.capabilities.pipelineLabel}>
-                    <span className={styles.pipelineLabel}>{t.capabilities.pipelineLabel}</span>
-                    <ol className={styles.pipelineNodes}>
-                      {cat.pipeline.map((node, nodeIdx) => (
-                        <li
-                          key={node}
-                          className={styles.pipelineNode}
-                          style={{ '--node-delay': `${nodeIdx * 60}ms` }}
-                        >
-                          <span className={styles.nodePill}>{node}</span>
-                          {nodeIdx < cat.pipeline.length - 1 && (
-                            <span className={styles.nodeLink} aria-hidden="true" />
-                          )}
-                        </li>
-                      ))}
-                    </ol>
                   </div>
-                </motion.div>
-              );
-            })}
-          </div>
-          <div className={styles.coreStack}>
-            <span className={styles.coreStackLabel}>{t.capabilities.coreStackLabel}</span>
-            <div className={styles.coreStackChips}>
-              {coreStack.map((tech) => (
-                <span key={tech} className={styles.stackChip}>{tech}</span>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-
+                )}
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

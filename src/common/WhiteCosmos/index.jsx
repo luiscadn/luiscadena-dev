@@ -16,178 +16,208 @@ export default function WhiteCosmos() {
     let height = 0;
     let dpr = 1;
 
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     // Mouse coordinates
     const mouse = {
       x: null,
       y: null,
-      radius: 180
+      radius: 190
     };
 
     let scrollY = 0;
 
-    // Tech Accent Palette for Constellation Clusters
-    const ACCENT_COLORS = [
-      { r: 163, g: 217, b: 0,   hex: '#A3D900', name: 'lime' },   // Verde de Sistema
-      { r: 0,   g: 216, b: 246, hex: '#00D8F6', name: 'cyan' },   // Cian Eléctrico
-      { r: 139, g: 92,  b: 246, hex: '#8B5CF6', name: 'violet' }, // Violeta Tech
+    // Harmonious Architectural Palette (Refined Tech Tones)
+    const PALETTE = [
+      { r: 14,  g: 165, b: 233, name: 'cyan',     glow: 'rgba(14, 165, 233, 0.45)' }, // Electric Sky
+      { r: 163, g: 217, b: 0,   name: 'lime',     glow: 'rgba(163, 217, 0, 0.40)' },   // System Lime
+      { r: 71,  g: 85,  b: 105, name: 'slate',    glow: 'rgba(71, 85, 105, 0.25)' },   // Deep Slate
+      { r: 100, g: 116, b: 139, name: 'graphite', glow: 'rgba(100, 116, 139, 0.20)' }, // Neutral Graphite
     ];
 
-    // Constellation Cluster Hubs (dynamic centroids)
-    class ClusterHub {
-      constructor(w, h, isMobile, colorIndex) {
-        this.x = Math.random() * (w - 160) + 80;
-        this.y = Math.random() * (h - 160) + 80;
-        const speed = isMobile ? 0.08 : 0.12;
-        this.vx = (Math.random() - 0.5) * speed;
-        this.vy = (Math.random() - 0.5) * speed;
-        this.radius = isMobile ? (Math.random() * 50 + 75) : (Math.random() * 70 + 100);
-        this.color = ACCENT_COLORS[colorIndex % ACCENT_COLORS.length];
+    // Synaptic Data Pulse class (signal packets traversing connections)
+    class SynapsePulse {
+      constructor(fromNode, toNode, color) {
+        this.from = fromNode;
+        this.to = toNode;
+        this.color = color;
+        this.progress = 0;
+        this.speed = Math.random() * 0.008 + 0.006; // Smooth travel speed
+        this.dead = false;
       }
 
-      update(w, h) {
-        this.x += this.vx;
-        this.y += this.vy;
-        if (this.x < 60 || this.x > w - 60) this.vx *= -1;
-        if (this.y < 60 || this.y > h - 60) this.vy *= -1;
+      update() {
+        this.progress += this.speed;
+        if (this.progress >= 1) {
+          this.dead = true;
+        }
+      }
+
+      draw(context, sY, w, h) {
+        const renderYA = (this.from.y - (sY * (1 - this.from.depth) * 0.06) % h + h) % h;
+        const renderYB = (this.to.y - (sY * (1 - this.to.depth) * 0.06) % h + h) % h;
+
+        const curX = this.from.x + (this.to.x - this.from.x) * this.progress;
+        const curY = renderYA + (renderYB - renderYA) * this.progress;
+
+        const alpha = Math.sin(this.progress * Math.PI) * 0.85;
+        const { r, g, b } = this.color;
+
+        // Draw glowing synaptic packet
+        context.beginPath();
+        context.arc(curX, curY, 2.2, 0, Math.PI * 2);
+        context.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        context.shadowColor = `rgba(${r}, ${g}, ${b}, 0.8)`;
+        context.shadowBlur = 8;
+        context.fill();
+        context.shadowBlur = 0;
       }
     }
 
+    // Node class with gentle organic floating, depth planes, and luminous halos
     class Node {
-      constructor(w, h, isMobile, hub = null, isBeacon = false) {
-        this.clusterHub = hub;
-        this.isBeacon = isBeacon;
-        this.color = hub ? hub.color : ACCENT_COLORS[Math.floor(Math.random() * ACCENT_COLORS.length)];
+      constructor(w, h, isMobile, type = 'standard') {
+        this.type = type; // 'beacon', 'standard', or 'dust'
         this.reset(w, h, isMobile, true);
       }
 
       reset(w, h, isMobile, initial = false) {
-        if (this.clusterHub) {
-          // Spawn tightly grouped around cluster centroid
-          const angle = Math.random() * Math.PI * 2;
-          const dist = Math.random() * this.clusterHub.radius * 0.85;
-          this.x = this.clusterHub.x + Math.cos(angle) * dist;
-          this.y = this.clusterHub.y + Math.sin(angle) * dist;
+        // Natural distribution across entire viewport
+        this.x = initial ? Math.random() * w : (Math.random() < 0.5 ? -10 : w + 10);
+        this.y = initial ? Math.random() * h : Math.random() * h;
+
+        // Subtle, serene drift
+        const speedMultiplier = prefersReducedMotion ? 0.02 : (isMobile ? 0.12 : 0.16);
+        const angle = Math.random() * Math.PI * 2;
+        const speed = (Math.random() * 0.2 + 0.1) * speedMultiplier;
+        this.vx = Math.cos(angle) * speed;
+        this.vy = Math.sin(angle) * speed;
+
+        // Organic wave oscillation
+        this.phase = Math.random() * Math.PI * 2;
+        this.phaseSpeed = Math.random() * 0.015 + 0.008;
+
+        if (this.type === 'beacon') {
+          // Prominent anchor star
+          this.color = Math.random() > 0.5 ? PALETTE[0] : PALETTE[1];
+          this.baseRadius = isMobile ? 3.0 : 3.6;
+          this.baseAlpha = 0.85;
+          this.depth = 0.95;
+          this.ringPhase = Math.random() * Math.PI * 2;
+        } else if (this.type === 'dust') {
+          // Deep atmospheric particle
+          this.color = PALETTE[2];
+          this.baseRadius = Math.random() * 0.6 + 0.7;
+          this.baseAlpha = Math.random() * 0.2 + 0.15;
+          this.depth = Math.random() * 0.3 + 0.2;
         } else {
-          this.x = Math.random() * w;
-          this.y = Math.random() * h;
+          // Standard neural graph node
+          const colorRoll = Math.random();
+          if (colorRoll < 0.35) this.color = PALETTE[0]; // Cyan
+          else if (colorRoll < 0.65) this.color = PALETTE[1]; // Lime
+          else this.color = PALETTE[2]; // Slate
+          this.baseRadius = (Math.random() * 0.8 + 1.4);
+          this.baseAlpha = Math.random() * 0.25 + 0.45;
+          this.depth = Math.random() * 0.5 + 0.5;
         }
-
-        // Calm, serene organic drift (no runaway fast travel)
-        const speed = isMobile ? 0.12 : 0.16;
-        this.vx = (Math.random() - 0.5) * speed;
-        this.vy = (Math.random() - 0.5) * speed;
-
-        // Depth factor (0.3 to 1.0)
-        this.depth = Math.random() * 0.7 + 0.3;
-
-        // Fully Chromatic Tech Palette (System Lime, Electric Cyan, Tech Violet)
-        if (this.isBeacon) {
-          this.baseRadius = (Math.random() * 0.8 + 3.8);
-          this.baseAlpha = 0.92;
-        } else {
-          this.baseRadius = (Math.random() * 1.2 + 1.4) * this.depth;
-          // Luminous colored alpha: crisp and vibrant against white background
-          this.baseAlpha = (Math.random() * 0.30 + 0.48);
-        }
-
-        this.pulsePhase = Math.random() * Math.PI * 2;
-        this.pulseSpeed = Math.random() * 0.025 + 0.015;
       }
 
-      update(w, h, isMobile) {
-        this.x += this.vx;
-        this.y += this.vy;
-        this.pulsePhase += this.pulseSpeed;
-
-        // Gentle spring toward cluster centroid if clustered (soft, strictly bounded)
-        if (this.clusterHub) {
-          let cdx = this.clusterHub.x - this.x;
-          let cdy = this.clusterHub.y - this.y;
-
-          // Shortest toroidal path to avoid slingshotting across screen wraps
-          if (cdx > w / 2) cdx -= w;
-          if (cdx < -w / 2) cdx += w;
-          if (cdy > h / 2) cdy -= h;
-          if (cdy < -h / 2) cdy += h;
-
-          const cdist = Math.hypot(cdx, cdy);
-          if (cdist > this.clusterHub.radius * 0.8) {
-            const excess = (cdist - this.clusterHub.radius * 0.8) / this.clusterHub.radius;
-            const pull = Math.min(excess * 0.003, 0.004);
-            this.vx += (cdx / cdist) * pull;
-            this.vy += (cdy / cdist) * pull;
-          }
+      update(w, h) {
+        this.phase += this.phaseSpeed;
+        if (this.type === 'beacon') {
+          this.ringPhase += 0.02;
         }
 
-        // Apply frictional damping to prevent any velocity accumulation
-        this.vx *= 0.985;
-        this.vy *= 0.985;
+        // Add soft organic wave drift
+        const waveX = Math.sin(this.phase) * 0.04;
+        const waveY = Math.cos(this.phase) * 0.04;
 
-        // Strict speed clamp to eliminate fast traveling runaway nodes
-        const maxSpeed = isMobile ? 0.20 : 0.26;
-        const currentSpeed = Math.hypot(this.vx, this.vy);
-        if (currentSpeed > maxSpeed) {
-          this.vx = (this.vx / currentSpeed) * maxSpeed;
-          this.vy = (this.vy / currentSpeed) * maxSpeed;
-        } else if (currentSpeed < 0.04) {
-          // Keep a micro-drift alive so nodes remain organic
-          this.vx += (Math.random() - 0.5) * 0.02;
-          this.vy += (Math.random() - 0.5) * 0.02;
-        }
+        this.x += this.vx + waveX;
+        this.y += this.vy + waveY;
 
-        // Wrap around boundaries smoothly
-        if (this.x < -30) this.x = w + 30;
-        else if (this.x > w + 30) this.x = -30;
-        if (this.y < -30) this.y = h + 30;
-        else if (this.y > h + 30) this.y = -30;
+        // Wrap around boundaries gently
+        const pad = 40;
+        if (this.x < -pad) this.x = w + pad;
+        else if (this.x > w + pad) this.x = -pad;
+        if (this.y < -pad) this.y = h + pad;
+        else if (this.y > h + pad) this.y = -pad;
 
-        // Interactive mouse deflection / attraction (gentle)
-        if (mouse.x !== null && mouse.y !== null) {
+        // Fluid cursor deflection
+        if (mouse.x !== null && mouse.y !== null && !prefersReducedMotion) {
           const dx = mouse.x - this.x;
           const dy = mouse.y - this.y;
           const dist = Math.hypot(dx, dy);
 
           if (dist < mouse.radius && dist > 0) {
-            const force = (1 - dist / mouse.radius) * 0.45;
-            this.x += (dx / dist) * force * this.depth;
-            this.y += (dy / dist) * force * this.depth;
+            // Soft repel / drift
+            const factor = (1 - dist / mouse.radius);
+            const force = factor * factor * 0.6 * this.depth;
+            this.x -= (dx / dist) * force;
+            this.y -= (dy / dist) * force;
           }
         }
       }
 
-      draw(context, sY) {
-        // Parallax offset based on scroll and depth
-        const renderY = this.y - (sY * (1 - this.depth) * 0.09) % height;
-        const normalizedY = (renderY + height) % height;
-
-        const currentAlpha = this.baseAlpha + Math.sin(this.pulsePhase) * 0.14;
-        const finalAlpha = Math.max(0.22, Math.min(0.98, currentAlpha));
-
+      draw(context, sY, h) {
+        // Scroll parallax
+        const renderY = (this.y - (sY * (1 - this.depth) * 0.06) % h + h) % h;
+        const currentAlpha = Math.max(0.1, Math.min(0.95, this.baseAlpha + Math.sin(this.phase) * 0.12));
         const { r, g, b } = this.color;
 
-        context.beginPath();
-        context.arc(this.x, normalizedY, this.baseRadius, 0, Math.PI * 2);
+        if (this.type === 'beacon') {
+          // 1. Radiant luminous ambient halo
+          const haloGrad = context.createRadialGradient(
+            this.x, renderY, 0,
+            this.x, renderY, this.baseRadius * 3.8
+          );
+          haloGrad.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${currentAlpha * 0.5})`);
+          haloGrad.addColorStop(0.5, `rgba(${r}, ${g}, ${b}, ${currentAlpha * 0.15})`);
+          haloGrad.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
 
-        if (this.isBeacon) {
-          // Primary Beacon Star with radiant chromatic glow
-          context.fillStyle = `rgba(${r}, ${g}, ${b}, ${finalAlpha})`;
-          context.shadowColor = `rgba(${r}, ${g}, ${b}, 0.85)`;
-          context.shadowBlur = 12;
+          context.beginPath();
+          context.arc(this.x, renderY, this.baseRadius * 3.8, 0, Math.PI * 2);
+          context.fillStyle = haloGrad;
           context.fill();
-          context.shadowBlur = 0; // reset
+
+          // 2. Subtle orbital ring pulse
+          const ringRadius = this.baseRadius * (1.8 + Math.sin(this.ringPhase) * 0.3);
+          const ringAlpha = (0.35 + Math.sin(this.ringPhase) * 0.2) * currentAlpha;
+          context.beginPath();
+          context.arc(this.x, renderY, ringRadius, 0, Math.PI * 2);
+          context.strokeStyle = `rgba(${r}, ${g}, ${b}, ${ringAlpha})`;
+          context.lineWidth = 0.75;
+          context.stroke();
+
+          // 3. Crisp white-hot core
+          context.beginPath();
+          context.arc(this.x, renderY, this.baseRadius, 0, Math.PI * 2);
+          context.fillStyle = `rgba(${r}, ${g}, ${b}, ${currentAlpha})`;
+          context.fill();
+
+          context.beginPath();
+          context.arc(this.x, renderY, this.baseRadius * 0.45, 0, Math.PI * 2);
+          context.fillStyle = '#FFFFFF';
+          context.fill();
+        } else if (this.type === 'standard') {
+          // Standard node with soft glow
+          context.beginPath();
+          context.arc(this.x, renderY, this.baseRadius, 0, Math.PI * 2);
+          context.fillStyle = `rgba(${r}, ${g}, ${b}, ${currentAlpha})`;
+          context.fill();
         } else {
-          // Fully Chromatic Constellation Node (No black ink!)
-          context.fillStyle = `rgba(${r}, ${g}, ${b}, ${finalAlpha})`;
-          context.shadowColor = `rgba(${r}, ${g}, ${b}, 0.35)`;
-          context.shadowBlur = 4;
+          // Dust particle (very subtle)
+          context.beginPath();
+          context.arc(this.x, renderY, this.baseRadius, 0, Math.PI * 2);
+          context.fillStyle = `rgba(${r}, ${g}, ${b}, ${currentAlpha * 0.6})`;
           context.fill();
-          context.shadowBlur = 0; // reset
         }
       }
     }
 
-    let hubs = [];
     let nodes = [];
+    let pulses = [];
+    let lastPulseTime = 0;
     let isMobile = false;
 
     const resize = () => {
@@ -200,28 +230,24 @@ export default function WhiteCosmos() {
       ctx.scale(dpr, dpr);
 
       isMobile = width <= 768;
-      const hubCount = isMobile ? 3 : 6;
-      const totalNodes = isMobile ? 48 : 96;
 
-      // 1. Initialize Cluster Hubs with alternating tech colors
-      hubs = [];
-      for (let h = 0; h < hubCount; h++) {
-        hubs.push(new ClusterHub(width, height, isMobile, h));
-      }
+      // Balanced density: generous breathing room, zero clutter
+      const beaconCount = isMobile ? 3 : 5;
+      const standardCount = isMobile ? 22 : 44;
+      const dustCount = isMobile ? 12 : 24;
 
-      // 2. Initialize Nodes (All anchored to cluster hubs and colored by cluster)
       nodes = [];
-      const baseNodesPerHub = Math.floor(totalNodes / hubCount);
-      const extraNodes = totalNodes % hubCount;
+      pulses = [];
 
-      hubs.forEach((hub, index) => {
-        // Beacon star for this constellation cluster
-        nodes.push(new Node(width, height, isMobile, hub, true));
-        const count = baseNodesPerHub + (index < extraNodes ? 1 : 0);
-        for (let i = 1; i < count; i++) {
-          nodes.push(new Node(width, height, isMobile, hub, false));
-        }
-      });
+      for (let i = 0; i < beaconCount; i++) {
+        nodes.push(new Node(width, height, isMobile, 'beacon'));
+      }
+      for (let i = 0; i < standardCount; i++) {
+        nodes.push(new Node(width, height, isMobile, 'standard'));
+      }
+      for (let i = 0; i < dustCount; i++) {
+        nodes.push(new Node(width, height, isMobile, 'dust'));
+      }
     };
 
     resize();
@@ -247,70 +273,84 @@ export default function WhiteCosmos() {
     window.addEventListener('scroll', onScroll, { passive: true });
 
     // Animation Loop
-    const maxConnectionDist = isMobile ? 115 : 155;
+    const maxConnectionDist = isMobile ? 105 : 145;
 
-    const render = () => {
+    const render = (time) => {
       ctx.clearRect(0, 0, width, height);
 
-      // Update Cluster Hubs
-      for (let h = 0; h < hubs.length; h++) {
-        hubs[h].update(width, height);
+      // 1. Subtle ambient background glow reflecting page warmth
+      if (mouse.x !== null && mouse.y !== null) {
+        const mouseGlow = ctx.createRadialGradient(
+          mouse.x, mouse.y, 0,
+          mouse.x, mouse.y, 220
+        );
+        mouseGlow.addColorStop(0, 'rgba(14, 165, 233, 0.035)');
+        mouseGlow.addColorStop(1, 'rgba(14, 165, 233, 0)');
+        ctx.fillStyle = mouseGlow;
+        ctx.fillRect(0, 0, width, height);
       }
 
-      // 1. Update and draw nodes
+      // 2. Update and draw nodes
       for (let i = 0; i < nodes.length; i++) {
-        nodes[i].update(width, height, isMobile);
-        nodes[i].draw(ctx, scrollY);
+        nodes[i].update(width, height);
+        nodes[i].draw(ctx, scrollY, height);
       }
 
-      // 2. Draw neural network constellation edges in luminous tech colors
+      // 3. Connect nearby nodes with delicate, whisper-soft hairlines
+      const connectedPairs = [];
+
       for (let i = 0; i < nodes.length; i++) {
         const nodeA = nodes[i];
-        const renderYA = (nodeA.y - (scrollY * (1 - nodeA.depth) * 0.09) % height + height) % height;
+        if (nodeA.type === 'dust') continue; // Dust doesn't form structural edges
+
+        const renderYA = (nodeA.y - (scrollY * (1 - nodeA.depth) * 0.06) % height + height) % height;
 
         for (let j = i + 1; j < nodes.length; j++) {
           const nodeB = nodes[j];
-          const renderYB = (nodeB.y - (scrollY * (1 - nodeB.depth) * 0.09) % height + height) % height;
+          if (nodeB.type === 'dust') continue;
+
+          const renderYB = (nodeB.y - (scrollY * (1 - nodeB.depth) * 0.06) % height + height) % height;
 
           const dx = nodeA.x - nodeB.x;
           const dy = renderYA - renderYB;
 
-          // Quick bounding box check before hypot
           if (Math.abs(dx) > maxConnectionDist || Math.abs(dy) > maxConnectionDist) continue;
 
           const dist = Math.hypot(dx, dy);
 
           if (dist < maxConnectionDist) {
+            // Quadratic falloff gives a much smoother, elegant fade without harsh cuts
             const proximity = 1 - dist / maxConnectionDist;
-            
-            // Clean chromatic lineAlpha: energetic yet ethereal
-            const lineAlpha = proximity * 0.35 * Math.min(nodeA.depth, nodeB.depth);
+            const lineAlpha = (proximity * proximity) * 0.22 * Math.min(nodeA.depth, nodeB.depth);
 
             ctx.beginPath();
             ctx.moveTo(nodeA.x, renderYA);
             ctx.lineTo(nodeB.x, renderYB);
-            ctx.lineWidth = proximity * 0.7 + 0.45; // 0.45px to 1.15px dynamic thickness
+            ctx.lineWidth = proximity * 0.45 + 0.35; // 0.35px to 0.8px ultra-fine hairline
 
             const colA = nodeA.color;
             const colB = nodeB.color;
 
             if (colA.name === colB.name) {
-              // Intra-cluster connection: luminous monochromatic hue
-              ctx.strokeStyle = `rgba(${colA.r}, ${colA.g}, ${colA.b}, ${lineAlpha * 1.5})`;
+              ctx.strokeStyle = `rgba(${colA.r}, ${colA.g}, ${colA.b}, ${lineAlpha})`;
             } else {
-              // Inter-cluster bridge: smooth linear gradient between the two cluster accents
               const grad = ctx.createLinearGradient(nodeA.x, renderYA, nodeB.x, renderYB);
-              grad.addColorStop(0, `rgba(${colA.r}, ${colA.g}, ${colA.b}, ${lineAlpha * 1.4})`);
-              grad.addColorStop(1, `rgba(${colB.r}, ${colB.g}, ${colB.b}, ${lineAlpha * 1.4})`);
+              grad.addColorStop(0, `rgba(${colA.r}, ${colA.g}, ${colA.b}, ${lineAlpha})`);
+              grad.addColorStop(1, `rgba(${colB.r}, ${colB.g}, ${colB.b}, ${lineAlpha})`);
               ctx.strokeStyle = grad;
             }
 
             ctx.stroke();
+
+            // Save pair candidate for synaptic data pulse
+            if (proximity > 0.45) {
+              connectedPairs.push([nodeA, nodeB]);
+            }
           }
         }
 
-        // 3. Connect nearby nodes to cursor with magnetic synapsis in the node's color
-        if (mouse.x !== null && mouse.y !== null) {
+        // 4. Connect nearby nodes to cursor with magnetic synapsis tether
+        if (mouse.x !== null && mouse.y !== null && !prefersReducedMotion) {
           const mdx = nodeA.x - mouse.x;
           const mdy = renderYA - mouse.y;
 
@@ -319,14 +359,30 @@ export default function WhiteCosmos() {
             if (mDist < mouse.radius) {
               const mProximity = 1 - mDist / mouse.radius;
               const { r, g, b } = nodeA.color;
+
               ctx.beginPath();
               ctx.moveTo(nodeA.x, renderYA);
               ctx.lineTo(mouse.x, mouse.y);
-              ctx.lineWidth = mProximity * 0.9 + 0.4;
-              ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${mProximity * 0.55})`; // Dynamic color matching the node!
+              ctx.lineWidth = mProximity * 0.65 + 0.3;
+              ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${mProximity * 0.35})`;
               ctx.stroke();
             }
           }
+        }
+      }
+
+      // 5. Spawn and update Synaptic Signal Pulses
+      if (!prefersReducedMotion && connectedPairs.length > 0 && time - lastPulseTime > 1600 && pulses.length < 5) {
+        lastPulseTime = time;
+        const randomPair = connectedPairs[Math.floor(Math.random() * connectedPairs.length)];
+        pulses.push(new SynapsePulse(randomPair[0], randomPair[1], randomPair[0].color));
+      }
+
+      for (let p = pulses.length - 1; p >= 0; p--) {
+        pulses[p].update();
+        pulses[p].draw(ctx, scrollY, width, height);
+        if (pulses[p].dead) {
+          pulses.splice(p, 1);
         }
       }
 

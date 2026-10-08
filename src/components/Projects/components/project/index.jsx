@@ -18,7 +18,10 @@ export default function index({ index, title, tag, problem, architecture, stack,
                 aria-expanded={isOpen}
             >
                 <span className={styles.heading}>
-                    <h2>{title}</h2>
+                    <span className={styles.titleWithNum}>
+                        <span className={styles.projectIndex}>0{index + 1}</span>
+                        <h2>{title}</h2>
+                    </span>
                     <p>{tag || "Systems Architecture"}</p>
                 </span>
                 <span className={`${styles.expandIcon} ${isOpen ? styles.expandIconOpen : ''}`} aria-hidden="true" />

@@ -92,7 +92,7 @@ export default function index() {
         </div>
         <div className={styles.nav}>
           <div className={styles.emailWrapper}>
-            <Rounded backgroundColor="#F8FAFC" textColor="#464B50">
+            <Rounded backgroundColor="#F5F4F0" textColor="#0D0D0D">
               <button
                 type="button"
                 onClick={copyEmail}
@@ -118,7 +118,7 @@ export default function index() {
               )}
             </AnimatePresence>
           </div>
-          <Rounded backgroundColor="#F8FAFC" textColor="#464B50">
+          <Rounded backgroundColor="#F5F4F0" textColor="#0D0D0D">
             <Link href="https://github.com/luiscadn" target="_blank" rel="noopener noreferrer" className="links">
               <p>GitHub @luiscadn</p>
             </Link>

@@ -150,14 +150,14 @@ export default function Home() {
       onMouseMove={(e) => window.innerWidth > 768 ? moveItems(e.clientX, e.clientY) : null}
       className={styles.projects}
     >
-      <div className={styles.header}>
-        <div className={styles.titleWrapper}>
-          <span className={styles.sectionTag}>{t.projects.eyebrow}</span>
-          <h2 className={styles.title}>{t.projects.title}</h2>
+      <div className={styles.sectionHeader}>
+        <div className={styles.headerLeft}>
+          <span className={styles.sectionNumber}>{t.projects?.sectionNum || "03"}</span>
+          <h2 className={styles.sectionTitle}>{t.projects?.sectionTitle || "Selected work"}</h2>
         </div>
-        <p className={styles.subtitle}>
-          {t.projects.subtitle}
-        </p>
+        {t.projects?.subtitle && (
+          <p className={styles.sectionSubtitle}>{t.projects.subtitle}</p>
+        )}
       </div>
       <div className={styles.body}>
         {

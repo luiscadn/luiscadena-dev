@@ -15,8 +15,9 @@ gsap.registerPlugin(ScrollToPlugin);
 
 const navItems = [
   { title: "Home", href: "#landing" },
+  { title: "About", href: "#about" },
+  { title: "Skills", href: "#skills" },
   { title: "Work", href: "#work" },
-  { title: "About", href: "#description" },
   { title: "Experience", href: "#experience" },
   { title: "Contact", href: "#contact" },
 ];

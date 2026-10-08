@@ -2,11 +2,11 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    font-family: var(--font-sans);
-    font-size: var(--text-caption);
+    font-family: var(--font-mono);
+    font-size: 11px;
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: var(--tracking-wide);
+    letter-spacing: var(--tracking-mono);
 }
 
 .divider{

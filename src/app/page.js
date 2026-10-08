@@ -4,8 +4,9 @@ import { useEffect, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import Preloader from '../components/Preloader';
 import Landing from '../components/Landing';
-import Projects from '../components/Projects';
 import Description from '../components/Description';
+import Skills from '../components/Skills';
+import Projects from '../components/Projects';
 import Experience from '../components/Experience';
 import Contact from '../components/Contact';
 import WhiteCosmos from '../common/WhiteCosmos';
@@ -42,13 +43,14 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <AnimatePresence mode="wait">
-        {isLoading && <Preloader />}
+        {isLoading && <Preloader key="preloader" />}
       </AnimatePresence>
       <WhiteCosmos />
       <Landing />
       <Description />
-      <Experience />
+      <Skills />
       <Projects />
+      <Experience />
       <Contact />
     </main>
   );
