@@ -98,11 +98,11 @@
           gap: 12px;
 
           .name {
-            font-family: var(--font-pixel);
+            font-family: var(--font-display);
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
             color: #FFFFFF;
-            letter-spacing: 0.03em;
+            letter-spacing: -0.025em;
             margin: 0;
             line-height: var(--leading-snug);
             white-space: nowrap;
