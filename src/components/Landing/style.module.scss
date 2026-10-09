@@ -8,15 +8,21 @@
     .heroImage{
       object-fit: cover;
       object-position: center 18%;
+      z-index: 1;
 
       @media (max-width: 768px) {
         object-position: center 0%;
       }
     }
+
+    .foregroundCutout{
+      z-index: 3;
+      pointer-events: none;
+    }
     
     .sliderContainer{
       position: absolute;
-      top: calc(100vh - 300px);
+      top: calc(100vh - 270px);
       width: 100vw;
       overflow: hidden;
       background: rgba(10, 10, 10, 0.68);
@@ -25,8 +31,8 @@
       border-top: 1px solid rgba(255, 255, 255, 0.12);
       border-bottom: 1px solid rgba(255, 255, 255, 0.12);
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
-      padding: 8px 0 14px 0;
-      z-index: 1;
+      padding: 10px 0 12px 0;
+      z-index: 2;
 
       @media (max-width: 768px) {
         top: auto;
@@ -55,15 +61,16 @@
       margin: 0px;
       color: white;
       font-family: var(--font-display);
-      font-size: var(--text-display);
-      font-weight: 800;
-      letter-spacing: -0.05em;
-      padding-right: 48px;
+      font-size: clamp(2.25rem, 4vw, 3.75rem);
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 1.1;
+      padding-right: 42px;
 
       @media (max-width: 768px) {
-        font-size: clamp(1.75rem, 6vw, 2.25rem);
+        font-size: clamp(1.25rem, 4.5vw, 1.75rem);
         line-height: 1.15;
-        color: rgba(255, 255, 255, 0.45);
+        color: rgba(255, 255, 255, 0.85);
         padding-right: 20px;
       }
     }

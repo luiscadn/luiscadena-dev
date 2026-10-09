@@ -67,6 +67,16 @@ export default function Home() {
           <p>{t.hero.marquee}</p>
         </div>
       </div>
+      <Image
+        src="/images/HelloWorld-transparent.png"
+        fill={true}
+        alt=""
+        sizes="100vw"
+        priority
+        quality={95}
+        className={`${styles.heroImage} ${styles.foregroundCutout}`}
+        aria-hidden="true"
+      />
       <div className={styles.description}>
         <div className={styles.badge}>
           <div className={styles.badgeHeader}>
