@@ -54,25 +54,6 @@ export default function Skills() {
                                         </span>
                                     ))}
                                 </div>
-
-                                {/* Reference Pipeline */}
-                                {cat.pipeline && cat.pipeline.length > 0 && (
-                                    <div className={styles.pipelineBlock}>
-                                        <span className={styles.pipelineLabel}>
-                                            {t.skills?.pipelineLabel || "Reference pipeline"}
-                                        </span>
-                                        <div className={styles.pipelineFlow}>
-                                            {cat.pipeline.map((step, pIdx) => (
-                                                <span key={pIdx} className={styles.flowNode}>
-                                                    <span className={styles.nodeText}>{step}</span>
-                                                    {pIdx < cat.pipeline.length - 1 && (
-                                                        <span className={styles.flowArrow} aria-hidden="true">→</span>
-                                                    )}
-                                                </span>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
                             </motion.div>
                         );
                     })}
